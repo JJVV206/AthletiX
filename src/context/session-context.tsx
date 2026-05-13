@@ -7,15 +7,20 @@ import {
   useState,
 } from "react";
 import { demoSession, initialUserProfile } from "@/data/mock-data";
-import { OnboardingGoal, SessionState } from "@/types/models";
+import {
+  MembershipTier,
+  OnboardingSelection,
+  SessionState,
+  SupportMode,
+} from "@/types/models";
 
-const STORAGE_KEY = "vitalia-session-v1";
+const STORAGE_KEY = "vitalai-session-v2";
 
 type SessionContextValue = {
   session: SessionState;
   signIn: (payload: { name?: string; email: string }) => void;
   signOut: () => void;
-  completeOnboarding: (goal: OnboardingGoal) => void;
+  completeOnboarding: (selection: OnboardingSelection) => void;
 };
 
 const SessionContext = createContext<SessionContextValue | null>(null);
@@ -25,10 +30,24 @@ function loadSession() {
   if (!stored) return demoSession;
 
   try {
-    return JSON.parse(stored) as SessionState;
+    const parsed = JSON.parse(stored) as Partial<SessionState>;
+    return {
+      ...demoSession,
+      ...parsed,
+      user: {
+        ...demoSession.user,
+        ...(parsed.user ?? {}),
+      },
+    } satisfies SessionState;
   } catch {
     return demoSession;
   }
+}
+
+function membershipFromSupportMode(supportMode: SupportMode): MembershipTier {
+  if (supportMode === "pro-coaching") return "pro";
+  if (supportMode === "ai-plus") return "plus";
+  return "free";
 }
 
 export function SessionProvider({ children }: PropsWithChildren) {
@@ -52,14 +71,21 @@ export function SessionProvider({ children }: PropsWithChildren) {
           },
         })),
       signOut: () => setSession(demoSession),
-      completeOnboarding: (goal) =>
+      completeOnboarding: (selection) =>
         setSession((previous) => ({
           ...previous,
           onboardingComplete: true,
-          goal,
+          goal: selection.goal,
           user: {
             ...previous.user,
-            focus: goal,
+            focus: selection.goal,
+            sports: selection.sports,
+            trainingLevel: selection.trainingLevel,
+            performanceFocus: selection.performanceFocus,
+            supportMode: selection.supportMode,
+            membership: membershipFromSupportMode(selection.supportMode),
+            targetWeightKg: selection.targetWeightKg,
+            weeklyTrainingDays: selection.weeklyTrainingDays,
           },
         })),
     }),

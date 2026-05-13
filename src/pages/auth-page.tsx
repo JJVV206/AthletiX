@@ -17,6 +17,13 @@ type FormState = {
 
 const initialForm: FormState = { name: "", email: "", password: "" };
 
+const featureCards = [
+  "Nutrition tracking that feels like fuel management, not calorie guilt",
+  "Training organization with progression and session structure",
+  "Sport-aware modules built around the demands of your discipline",
+  "Premium guidance through AI and specialist support layers",
+];
+
 export function AuthPage() {
   const navigate = useNavigate();
   const { signIn, session } = useSession();
@@ -28,11 +35,11 @@ export function AuthPage() {
   const subtitle = useMemo(
     () =>
       tab === "signup"
-        ? "Start your journey to a balanced, resilient life today."
-        : "Welcome back. Resume your unified vitality plan.",
+        ? "Create your performance account and set up a system built around your sport."
+        : "Welcome back. Resume your fueling, training, and progress workflow.",
     [tab],
   );
-  const title = tab === "signup" ? "Create an account" : "Welcome back";
+  const title = tab === "signup" ? "Create your account" : "Welcome back";
 
   function validate(activeTab: string) {
     if (activeTab === "signup" && form.name.trim().length < 2) {
@@ -73,22 +80,20 @@ export function AuthPage() {
         <div className="grid min-h-[calc(100vh-4rem)] gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
           <div data-reveal className="hidden lg:block">
             <Logo />
-            <h1 className="mt-10 max-w-lg font-display text-6xl font-bold tracking-tight">
-              Create a calmer performance system.
+            <p className="mt-10 text-sm font-semibold uppercase tracking-[0.3em] text-primary">
+              Premium sports-tech platform
+            </p>
+            <h1 className="mt-6 max-w-2xl font-display text-6xl font-bold tracking-tight">
+              Enter your athlete operating system.
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-8 text-muted-foreground">
-              Precision nutrition, adaptive workouts, and biometric intelligence in one
-              responsive workspace.
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
+              AthletiX is designed for everyday users who want access to the same type of
+              structure, visibility, and support serious athletes rely on.
             </p>
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
-              {[
-                "Adaptive calorie and macro planning",
-                "Workout programming that reacts to your week",
-                "Analytics that reduce overwhelm",
-                "A visual system built for consistency",
-              ].map((item) => (
+              {featureCards.map((item) => (
                 <Card key={item} className="rounded-[28px] p-5">
-                  <p className="font-semibold">{item}</p>
+                  <p className="font-semibold leading-7">{item}</p>
                 </Card>
               ))}
             </div>
@@ -181,13 +186,13 @@ export function AuthPage() {
                     </label>
 
                     {error ? (
-                      <p className="rounded-2xl bg-rose-50 px-4 py-3 text-sm text-rose-600">
+                      <p className="rounded-2xl bg-rose-500/10 px-4 py-3 text-sm text-rose-300">
                         {error}
                       </p>
                     ) : null}
 
                     <Button className="w-full" size="lg" type="submit">
-                      {value === "signup" ? "Create Account" : "Enter Dashboard"}
+                      {value === "signup" ? "Create Account" : "Enter Platform"}
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </form>
@@ -196,9 +201,9 @@ export function AuthPage() {
             </Tabs>
 
             <div className="mt-8 flex items-center justify-center gap-6 text-sm text-muted-foreground lg:justify-start">
-              <a href="#">Help Center</a>
-              <a href="#">Safety Tips</a>
-              <a href="#">Community</a>
+              <a href="#">Memberships</a>
+              <a href="#">Support</a>
+              <a href="#">Contact</a>
             </div>
           </Card>
         </div>

@@ -1,190 +1,233 @@
-import {
-  Activity,
-  ArrowUpRight,
-  Droplets,
-  Flame,
-  Plus,
-  Scale,
-} from "lucide-react";
+import { ArrowUpRight, Brain, Dumbbell, Droplets, Sparkles, Trophy } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import { PageShell } from "@/components/page-shell";
-import { RingMetric } from "@/components/app/ring-metric";
-import { buildDashboardSnapshot } from "@/data/mock-data";
 import { useAppState } from "@/context/app-state-context";
+import {
+  performanceFocusLabels,
+  sportLabels,
+  supportModeLabels,
+  trainingLevelLabels,
+} from "@/data/mock-data";
+import {
+  buildWeeklyNutritionSummary,
+  getCaloriesRemaining,
+  getRemainingMacros,
+  getWaterProgress,
+} from "@/lib/nutrition";
 import { useSession } from "@/context/session-context";
 import { formatNumber } from "@/lib/utils";
 
-const actionCards = [
-  { label: "Log Meal", icon: Plus, tone: "bg-secondary text-primary" },
-  { label: "Log Water", icon: Droplets, tone: "bg-lime/20 text-primary" },
-  { label: "Log Weight", icon: Scale, tone: "bg-sky/50 text-primary" },
-  { label: "More", icon: Activity, tone: "bg-muted text-muted-foreground" },
+const quickActions = [
+  { label: "Fuel today", href: "/app/nutrition" },
+  { label: "Log training", href: "/app/training" },
+  { label: "Review progress", href: "/app/progress" },
 ];
 
 export function DashboardPage() {
-  const { nutrition, activities } = useAppState();
+  const { nutrition, workout, analytics } = useAppState();
   const {
     session: { user },
   } = useSession();
-  const snapshot = buildDashboardSnapshot(nutrition, activities);
+  const weeklySummary = buildWeeklyNutritionSummary(nutrition);
+  const remainingMacros = getRemainingMacros(nutrition);
+  const caloriesRemaining = getCaloriesRemaining(nutrition);
+  const hydrationProgress = Math.round(getWaterProgress(nutrition));
+  const completedSets = workout.exercises.reduce(
+    (count, exercise) => count + exercise.sets.filter((set) => set.completed).length,
+    0,
+  );
+  const totalSets = workout.exercises.reduce(
+    (count, exercise) => count + exercise.sets.length,
+    0,
+  );
 
   return (
     <PageShell className="space-y-6">
-      <section data-reveal className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
-        <Card className="rounded-[34px] bg-aurora p-8">
+      <section data-reveal className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
+        <Card className="rounded-[34px] bg-gradient-to-br from-slate-950 via-slate-900 to-primary/12 p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">
-            Good morning, {user.name.split(" ")[0]}
+            Today
           </p>
-          <h1 className="mt-4 font-display text-5xl font-bold tracking-tight">
-            Your vitality score is {user.vitalityScore}.
+          <h1 className="mt-4 max-w-3xl font-display text-5xl font-bold tracking-tight">
+            Clear priorities, then deeper tools when you need them.
           </h1>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
-            Nutrition consistency is trending upward. Keep protein slightly higher at
-            lunch to preserve the momentum.
+          <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">
+            You are aligned for {sportLabels[user.sports[0]]} with a{" "}
+            {performanceFocusLabels[user.performanceFocus].toLowerCase()} emphasis.
+            Protein is the main nutrition gap today and your next structured session is{" "}
+            {workout.title.toLowerCase()}.
           </p>
         </Card>
-        <Card className="overflow-hidden rounded-[34px] bg-primary p-8 text-primary-foreground">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary-foreground/70">
-            Recommended for you
-          </p>
-          <h2 className="mt-4 text-4xl font-bold tracking-tight">
-            {snapshot.recommendedWorkout.title}
-          </h2>
-          <div className="mt-6 flex flex-wrap gap-4 text-sm text-primary-foreground/80">
-            <span>{snapshot.recommendedWorkout.durationMin} min</span>
-            <span>{snapshot.recommendedWorkout.calories} kcal</span>
-            <span>{snapshot.recommendedWorkout.difficulty}</span>
-          </div>
-          <Button variant="secondary" className="mt-8 w-full sm:w-auto">
-            Start Workout
-          </Button>
-        </Card>
-      </section>
 
-      <section className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
-        <Card data-reveal className="rounded-[34px] p-8">
+        <Card className="rounded-[34px] p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-            Daily calories
+            Performance score
           </p>
-          <RingMetric
-            value={snapshot.caloriesLeft}
-            max={nutrition.budgetCalories}
-            label="kcal left"
-            subLabel={`${formatNumber(snapshot.eatenCalories)} eaten`}
-          />
-          <div className="grid grid-cols-2 gap-4 text-center">
-            <div>
-              <p className="text-sm text-muted-foreground">Eaten</p>
-              <p className="text-3xl font-bold">{snapshot.eatenCalories}</p>
+          <div className="mt-5 flex items-end justify-between gap-4">
+            <p className="text-6xl font-extrabold tracking-tight text-primary">
+              {user.performanceScore}
+            </p>
+            <div className="rounded-2xl bg-primary/12 p-4 text-primary">
+              <Sparkles className="h-6 w-6" />
             </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Burned</p>
-              <p className="text-3xl font-bold">{snapshot.burnedCalories}</p>
+          </div>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-[24px] bg-white/5 p-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                Training level
+              </p>
+              <p className="mt-3 text-lg font-semibold">
+                {trainingLevelLabels[user.trainingLevel]}
+              </p>
+            </div>
+            <div className="rounded-[24px] bg-white/5 p-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                Support
+              </p>
+              <p className="mt-3 text-lg font-semibold">
+                {supportModeLabels[user.supportMode]}
+              </p>
             </div>
           </div>
         </Card>
-
-        <div className="grid gap-6">
-          <Card data-reveal className="rounded-[34px] p-8">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-                  Nutrition macros
-                </p>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Your protein intake is slightly behind target for lunch.
-                </p>
-              </div>
-              <Flame className="h-6 w-6 text-primary" />
-            </div>
-            <div className="mt-6 space-y-5">
-              {snapshot.macros.map((macro) => (
-                <div key={macro.key}>
-                  <div className="mb-2 flex items-center justify-between text-sm font-semibold">
-                    <span>{macro.label}</span>
-                    <span className="text-muted-foreground">
-                      {macro.current}/{macro.target}g
-                    </span>
-                  </div>
-                  <Progress
-                    value={(macro.current / macro.target) * 100}
-                    indicatorClassName={
-                      macro.tone === "lime"
-                        ? "bg-lime"
-                        : macro.tone === "sky"
-                          ? "bg-sky"
-                          : "bg-primary"
-                    }
-                  />
-                </div>
-              ))}
-            </div>
-          </Card>
-
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            {actionCards.map((action) => {
-              const Icon = action.icon;
-              return (
-                <Card
-                  key={action.label}
-                  data-reveal
-                  className="rounded-[30px] p-6 text-center"
-                >
-                  <div
-                    className={`mx-auto flex h-14 w-14 items-center justify-center rounded-full ${action.tone}`}
-                  >
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <p className="mt-5 font-semibold">{action.label}</p>
-                </Card>
-              );
-            })}
-          </div>
-        </div>
       </section>
 
-      <Card data-reveal className="rounded-[34px] p-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-              Recent activity
-            </p>
-            <h2 className="mt-2 text-2xl font-bold">Your live daily feed</h2>
-          </div>
-          <Button variant="ghost" className="text-primary">
-            View All
-            <ArrowUpRight className="ml-2 h-4 w-4" />
-          </Button>
-        </div>
-        <div className="mt-6 grid gap-4 lg:grid-cols-3">
-          {snapshot.activities.map((item) => (
-            <div
-              key={item.id}
-              className="rounded-[28px] border border-border/60 bg-white/80 p-5"
-            >
-              <p className="text-sm text-muted-foreground">
-                {item.subtitle} • {item.time}
+      <section className="grid gap-4 lg:grid-cols-3">
+        <Card data-reveal className="rounded-[30px] p-6">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                Fuel
               </p>
-              <p className="mt-3 text-xl font-bold">{item.title}</p>
-              <p
-                className={`mt-4 text-2xl font-extrabold ${
-                  item.tone === "negative"
-                    ? "text-rose-500"
-                    : item.tone === "neutral"
-                      ? "text-primary"
-                      : "text-primary"
-                }`}
-              >
-                {item.caloriesDelta > 0 ? "+" : item.caloriesDelta < 0 ? "-" : ""}
-                {Math.abs(item.caloriesDelta)}
-                {item.caloriesDelta !== 0 ? " kcal" : ""}
-              </p>
+              <h2 className="mt-3 text-3xl font-bold">{caloriesRemaining} kcal</h2>
+              <p className="mt-2 text-sm text-muted-foreground">Remaining today</p>
             </div>
-          ))}
-        </div>
-      </Card>
+            <div className="rounded-2xl bg-primary/12 p-3 text-primary">
+              <Droplets className="h-5 w-5" />
+            </div>
+          </div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            {[
+              ["Protein", `${remainingMacros.protein}g left`],
+              ["Carbs", `${remainingMacros.carbs}g left`],
+              ["Hydration", `${hydrationProgress}% goal`],
+            ].map(([label, value]) => (
+              <div key={label} className="rounded-[20px] bg-white/5 p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                  {label}
+                </p>
+                <p className="mt-2 font-semibold">{value}</p>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <Card data-reveal className="rounded-[30px] p-6">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                Training
+              </p>
+              <h2 className="mt-3 text-2xl font-bold">{workout.title}</h2>
+              <p className="mt-2 text-sm text-muted-foreground">{workout.startsAt}</p>
+            </div>
+            <div className="rounded-2xl bg-primary/12 p-3 text-primary">
+              <Dumbbell className="h-5 w-5" />
+            </div>
+          </div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            {[
+              ["Set progress", `${completedSets}/${Math.max(totalSets, 1)} done`],
+              ["Volume", `${formatNumber(workout.volumeKg)} kg`],
+            ].map(([label, value]) => (
+              <div key={label} className="rounded-[20px] bg-white/5 p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                  {label}
+                </p>
+                <p className="mt-2 font-semibold">{value}</p>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <Card data-reveal className="rounded-[30px] p-6">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                Progress
+              </p>
+              <h2 className="mt-3 text-3xl font-bold">{weeklySummary.adherenceRate}%</h2>
+              <p className="mt-2 text-sm text-muted-foreground">Weekly adherence</p>
+            </div>
+            <div className="rounded-2xl bg-primary/12 p-3 text-primary">
+              <Trophy className="h-5 w-5" />
+            </div>
+          </div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            {[
+              ["Best streak", `${weeklySummary.bestStreak} days`],
+              ["Next milestone", analytics.milestoneDate],
+            ].map(([label, value]) => (
+              <div key={label} className="rounded-[20px] bg-white/5 p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                  {label}
+                </p>
+                <p className="mt-2 font-semibold">{value}</p>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </section>
+
+      <section className="grid gap-4 xl:grid-cols-[0.95fr_1.05fr]">
+        <Card data-reveal className="rounded-[30px] p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+            Next actions
+          </p>
+          <div className="mt-5 grid gap-3 sm:grid-cols-3">
+            {quickActions.map((action) => (
+              <Button
+                asChild
+                key={action.href}
+                variant="outline"
+                className="h-auto justify-between rounded-[22px] px-5 py-4"
+              >
+                <Link to={action.href}>
+                  <span>{action.label}</span>
+                  <ArrowUpRight className="h-4 w-4" />
+                </Link>
+              </Button>
+            ))}
+          </div>
+        </Card>
+
+        <Card data-reveal className="rounded-[30px] p-6">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                Deeper insight
+              </p>
+              <h2 className="mt-3 text-2xl font-bold">What to review next</h2>
+            </div>
+            <div className="rounded-2xl bg-primary/12 p-3 text-primary">
+              <Brain className="h-5 w-5" />
+            </div>
+          </div>
+          <p className="mt-5 text-sm leading-7 text-muted-foreground">
+            {analytics.recoveryInsight}
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Button asChild variant="ghost" className="px-0 text-primary">
+              <Link to="/app/insights">Open insights</Link>
+            </Button>
+            <Button asChild variant="ghost" className="px-0 text-primary">
+              <Link to="/app/sports">Open sports modules</Link>
+            </Button>
+          </div>
+        </Card>
+      </section>
     </PageShell>
   );
 }

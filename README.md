@@ -1,6 +1,6 @@
-# Vitalia
+# AthletiX
 
-Vitalia is a responsive wellness frontend built with Vite, React, TypeScript, Tailwind CSS, shadcn-style UI primitives, and anime.js.
+AthletiX is a responsive wellness frontend built with Vite, React, TypeScript, Tailwind CSS, shadcn-style UI primitives, and anime.js.
 
 ## Scripts
 

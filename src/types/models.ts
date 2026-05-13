@@ -1,8 +1,27 @@
 export type OnboardingGoal =
-  | "lose-weight"
-  | "gain-muscle"
-  | "improve-habits"
-  | "train-smarter";
+  | "body-composition"
+  | "build-strength"
+  | "game-performance"
+  | "consistency";
+
+export type SportDiscipline =
+  | "strength"
+  | "tennis"
+  | "padel"
+  | "soccer"
+  | "basketball";
+
+export type TrainingLevel = "foundation" | "intermediate" | "competitive";
+
+export type PerformanceFocus =
+  | "strength"
+  | "conditioning"
+  | "skill"
+  | "recovery";
+
+export type SupportMode = "self-manage" | "ai-plus" | "pro-coaching";
+
+export type MembershipTier = "free" | "plus" | "pro";
 
 export type MacroKey = "protein" | "carbs" | "fats";
 
@@ -27,27 +46,82 @@ export type UserProfile = {
   name: string;
   email: string;
   title: string;
-  vitalityScore: number;
+  performanceScore: number;
   currentWeightKg: number;
   targetWeightKg: number;
   bodyFatPercent: number;
-  hydrationLiters: number;
+  hydrationGoalLiters: number;
   focus: OnboardingGoal;
+  sports: SportDiscipline[];
+  trainingLevel: TrainingLevel;
+  performanceFocus: PerformanceFocus;
+  supportMode: SupportMode;
+  membership: MembershipTier;
+  weeklyTrainingDays: number;
 };
 
-export type MealPreset = {
+export type OnboardingSelection = {
+  goal: OnboardingGoal;
+  sports: SportDiscipline[];
+  trainingLevel: TrainingLevel;
+  performanceFocus: PerformanceFocus;
+  supportMode: SupportMode;
+  targetWeightKg: number;
+  weeklyTrainingDays: number;
+};
+
+export type FoodTone = "mint" | "lime" | "sky" | "sand";
+
+export type FoodCategory =
+  | "common"
+  | "packaged"
+  | "restaurant"
+  | "homemade"
+  | "supplements"
+  | "drinks";
+
+export type FoodSource = "generic" | "branded" | "restaurant" | "custom";
+
+export type NutritionTargetStyle =
+  | "balanced"
+  | "high-protein"
+  | "low-carb"
+  | "low-fat";
+
+export type FoodDatabaseEntry = {
   id: string;
   name: string;
-  amount: string;
+  brand?: string;
+  category: FoodCategory;
+  source: FoodSource;
+  servingLabel: string;
   calories: number;
   macros: Record<MacroKey, number>;
-  tone: "mint" | "lime" | "sky" | "sand";
+  verified: boolean;
+  tone: FoodTone;
 };
 
-export type MealEntry = MealPreset & {
+export type CustomFoodInput = {
+  name: string;
+  brand?: string;
+  servingLabel: string;
+  calories: number;
+  macros: Record<MacroKey, number>;
+  category?: FoodCategory;
+};
+
+export type NutritionTargetUpdate = {
+  budgetCalories: number;
+  macroTargets: Record<MacroKey, number>;
+  targetStyle: NutritionTargetStyle;
+};
+
+export type MealEntry = FoodDatabaseEntry & {
   entryId: string;
   mealId: string;
+  foodId: string;
   loggedAt: string;
+  quantity: number;
 };
 
 export type MealSection = {
@@ -57,12 +131,44 @@ export type MealSection = {
   entries: MealEntry[];
 };
 
+export type MealTemplate = {
+  id: string;
+  name: string;
+  mealId: string;
+  items: Array<{
+    foodId: string;
+    quantity: number;
+  }>;
+};
+
+export type HydrationDay = {
+  goalMl: number;
+  consumedMl: number;
+};
+
+export type NutritionHistoryDay = {
+  id: string;
+  label: string;
+  calories: number;
+  macros: Record<MacroKey, number>;
+  waterMl: number;
+  withinTarget: boolean;
+};
+
 export type NutritionDay = {
   budgetCalories: number;
   burnedCalories: number;
   macroTargets: Record<MacroKey, number>;
+  targetStyle: NutritionTargetStyle;
   meals: MealSection[];
-  suggestedPresets: MealPreset[];
+  foodCatalog: FoodDatabaseEntry[];
+  recentFoodIds: string[];
+  favoriteFoodIds: string[];
+  recentSearches: string[];
+  water: HydrationDay;
+  mealTemplates: MealTemplate[];
+  yesterdayMeals: MealTemplate[];
+  history: NutritionHistoryDay[];
 };
 
 export type DashboardSnapshot = {

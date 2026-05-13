@@ -17,7 +17,7 @@ export function seedSession(partial?: Partial<SessionState>) {
     },
   };
 
-  localStorage.setItem("vitalia-session-v1", JSON.stringify(session));
+  localStorage.setItem("vitalai-session-v2", JSON.stringify(session));
 }
 
 export function renderApp(route = "/") {

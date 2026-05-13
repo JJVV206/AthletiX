@@ -1,33 +1,46 @@
 import { Link, useLocation } from "react-router-dom";
 import {
-  Activity,
   Apple,
   Dumbbell,
-  Home,
-  LayoutTemplate,
+  LayoutDashboard,
+  LineChart,
+  ShieldCheck,
+  Sparkles,
+  Trophy,
+  Users,
   UserCircle2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { supportModeLabels } from "@/data/mock-data";
+import { useSession } from "@/context/session-context";
 
 const navItems = [
-  { label: "Home", href: "/app", icon: Home },
+  { label: "Dashboard", href: "/app", icon: LayoutDashboard },
   { label: "Nutrition", href: "/app/nutrition", icon: Apple },
-  { label: "Workouts", href: "/app/workouts", icon: Dumbbell },
-  { label: "Routines", href: "/app/routines", icon: LayoutTemplate },
-  { label: "Analytics", href: "/app/analytics", icon: Activity },
+  { label: "Training", href: "/app/training", icon: Dumbbell },
+  { label: "Sports", href: "/app/sports", icon: Trophy },
+  { label: "Progress", href: "/app/progress", icon: LineChart },
+  { label: "Insights", href: "/app/insights", icon: Sparkles },
+  { label: "Professionals", href: "/app/professionals", icon: Users },
   { label: "Profile", href: "/app/profile", icon: UserCircle2 },
 ];
 
 export function AppSidebar() {
   const location = useLocation();
+  const {
+    session: { user },
+  } = useSession();
 
   return (
-    <aside className="hidden w-72 flex-col rounded-[32px] border border-white/70 bg-white/75 p-6 shadow-soft backdrop-blur xl:flex">
+    <aside className="hidden w-72 flex-col rounded-[32px] border border-white/10 bg-white/5 p-6 shadow-soft backdrop-blur xl:flex">
       <div>
-        <p className="text-xs font-semibold uppercase tracking-[0.26em] text-primary/70">
-          Vitalia Hub
+        <p className="text-xs font-semibold uppercase tracking-[0.26em] text-primary/80">
+          Performance OS
         </p>
-        <h2 className="mt-3 font-display text-3xl font-bold">Unified wellness.</h2>
+        <h2 className="mt-3 font-display text-3xl font-bold">Train like a pro.</h2>
+        <p className="mt-3 text-sm leading-6 text-muted-foreground">
+          Fuel, training, sport modules, and expert support in one structured system.
+        </p>
       </div>
       <nav className="mt-10 flex flex-col gap-2">
         {navItems.map((item) => {
@@ -43,8 +56,8 @@ export function AppSidebar() {
               className={cn(
                 "flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition",
                 active
-                  ? "bg-secondary text-primary shadow-soft"
-                  : "text-muted-foreground hover:bg-white hover:text-foreground",
+                  ? "bg-primary/12 text-primary shadow-soft"
+                  : "text-muted-foreground hover:bg-white/5 hover:text-foreground",
               )}
             >
               <Icon className="h-4 w-4" />
@@ -53,13 +66,26 @@ export function AppSidebar() {
           );
         })}
       </nav>
-      <div className="mt-auto rounded-[28px] bg-primary p-5 text-primary-foreground">
-        <p className="text-xs uppercase tracking-[0.22em] text-primary-foreground/70">
-          Recovery Tip
-        </p>
-        <p className="mt-3 text-sm leading-6">
-          Stay with the current sleep window for three more nights before increasing
-          volume.
+      <div className="mt-auto rounded-[28px] border border-white/10 bg-slate-950/70 p-5">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-xs uppercase tracking-[0.22em] text-primary/80">
+              Active support
+            </p>
+            <p className="mt-2 text-lg font-semibold">
+              {supportModeLabels[user.supportMode]}
+            </p>
+          </div>
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/15 text-primary">
+            <ShieldCheck className="h-5 w-5" />
+          </div>
+        </div>
+        <p className="mt-4 text-sm leading-6 text-muted-foreground">
+          {user.membership === "pro"
+            ? "Your specialist access is live for nutrition, strength, and sport-specific planning."
+            : user.membership === "plus"
+              ? "AI recommendations are active across fueling, load management, and weekly reviews."
+              : "Upgrade when you want AI recommendations and sport-specific expert support."}
         </p>
       </div>
     </aside>
@@ -71,7 +97,7 @@ export function BottomNav() {
   const mobileItems = navItems.slice(0, 5);
 
   return (
-    <nav className="fixed inset-x-4 bottom-4 z-40 rounded-[28px] border border-white/80 bg-white/85 px-2 py-2 shadow-float backdrop-blur xl:hidden">
+    <nav className="fixed inset-x-4 bottom-4 z-40 rounded-[28px] border border-white/10 bg-slate-950/90 px-2 py-2 shadow-float backdrop-blur xl:hidden">
       <div className="flex items-center justify-between gap-1">
         {mobileItems.map((item) => {
           const Icon = item.icon;
@@ -85,7 +111,7 @@ export function BottomNav() {
               to={item.href}
               className={cn(
                 "flex min-w-0 flex-1 flex-col items-center gap-1 rounded-2xl px-2 py-2 text-[11px] font-semibold",
-                active ? "bg-secondary text-primary" : "text-muted-foreground",
+                active ? "bg-primary/12 text-primary" : "text-muted-foreground",
               )}
             >
               <Icon className="h-4 w-4" />

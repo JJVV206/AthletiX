@@ -1,24 +1,17 @@
-import {
-  Bell,
-  ChevronRight,
-  LogOut,
-  Shield,
-  SlidersHorizontal,
-} from "lucide-react";
+import { LogOut, ShieldCheck, Sparkles, Trophy } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { PageShell } from "@/components/page-shell";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useAppState } from "@/context/app-state-context";
+import {
+  performanceFocusLabels,
+  sportLabels,
+  supportModeLabels,
+  trainingLevelLabels,
+} from "@/data/mock-data";
 import { useSession } from "@/context/session-context";
-
-const settingsRows = [
-  { title: "Profile info", icon: SlidersHorizontal },
-  { title: "Goals & Targets", icon: ChevronRight },
-  { title: "Notifications", icon: Bell },
-  { title: "Privacy & Security", icon: Shield },
-];
 
 export function ProfilePage() {
   const navigate = useNavigate();
@@ -27,59 +20,74 @@ export function ProfilePage() {
 
   return (
     <PageShell className="space-y-6">
-      <Card data-reveal className="rounded-[34px] p-8 text-center">
-        <Avatar name={session.user.name} className="mx-auto h-20 w-20 text-lg" />
-        <h1 className="mt-5 text-4xl font-bold tracking-tight">{session.user.name}</h1>
-        <p className="mt-3 max-w-xl mx-auto text-base leading-7 text-muted-foreground">
-          {session.user.title}
-        </p>
-        <Button
-          variant="outline"
-          className="mt-8"
-          onClick={() => {
-            signOut();
-            navigate("/auth");
-          }}
-        >
-          <LogOut className="mr-2 h-4 w-4" />
-          Sign Out
-        </Button>
+      <Card data-reveal className="rounded-[34px] bg-gradient-to-r from-slate-950 to-primary/10 p-8">
+        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-center gap-5">
+            <Avatar name={session.user.name} className="h-20 w-20 text-lg" />
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">
+                Athlete profile
+              </p>
+              <h1 className="mt-3 text-4xl font-bold tracking-tight">{session.user.name}</h1>
+              <p className="mt-3 max-w-2xl text-base leading-7 text-muted-foreground">
+                {session.user.title}
+              </p>
+            </div>
+          </div>
+          <Button
+            variant="outline"
+            onClick={() => {
+              signOut();
+              navigate("/auth");
+            }}
+          >
+            <LogOut className="mr-2 h-4 w-4" />
+            Sign Out
+          </Button>
+        </div>
       </Card>
 
-      <section className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
+      <section className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
         <Card data-reveal className="rounded-[32px] p-6">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-            Account settings
+            Performance setup
           </p>
-          <div className="mt-5 space-y-3">
-            {settingsRows.map((row) => {
-              const Icon = row.icon;
-              return (
-                <button
-                  key={row.title}
-                  type="button"
-                  className="flex w-full items-center justify-between rounded-[22px] bg-muted/70 px-4 py-4 text-left"
-                >
-                  <div className="flex items-center gap-3">
-                    <Icon className="h-4 w-4 text-primary" />
-                    <span className="font-semibold">{row.title}</span>
-                  </div>
-                  <ChevronRight className="h-4 w-4 text-muted-foreground" />
-                </button>
-              );
-            })}
+          <div className="mt-5 grid gap-4 sm:grid-cols-2">
+            {[
+              ["Plan", session.user.membership.toUpperCase()],
+              ["Support", supportModeLabels[session.user.supportMode]],
+              ["Training level", trainingLevelLabels[session.user.trainingLevel]],
+              ["Focus", performanceFocusLabels[session.user.performanceFocus]],
+            ].map(([label, value]) => (
+              <div key={label} className="rounded-[24px] bg-white/5 p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                  {label}
+                </p>
+                <p className="mt-3 font-semibold">{value}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-5 flex flex-wrap gap-3">
+            {session.user.sports.map((sport) => (
+              <div
+                key={sport}
+                className="rounded-full border border-white/10 bg-primary/12 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary"
+              >
+                {sportLabels[sport]}
+              </div>
+            ))}
           </div>
         </Card>
 
         <Card data-reveal className="rounded-[32px] p-6">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-            Daily macro targets
+            Nutrition targets
           </p>
           <div className="mt-5 space-y-5">
             {[
-              ["Protein", nutrition.macroTargets.protein, "#118f64"],
+              ["Protein", nutrition.macroTargets.protein, "#00d1b2"],
               ["Carbs", nutrition.macroTargets.carbs, "#b8f64d"],
-              ["Fats", nutrition.macroTargets.fats, "#c7d7ff"],
+              ["Fats", nutrition.macroTargets.fats, "#44e0ff"],
             ].map(([label, value, color]) => (
               <div key={String(label)}>
                 <div className="mb-2 flex items-center justify-between text-sm font-semibold">
@@ -95,57 +103,69 @@ export function ProfilePage() {
               </div>
             ))}
           </div>
+          <div className="mt-6 rounded-[24px] bg-white/5 p-5 text-sm text-muted-foreground">
+            Your nutrition targets can be refined in the Fuel Center based on phase,
+            body goals, and weekly workload.
+          </div>
         </Card>
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-2">
+      <section className="grid gap-6 lg:grid-cols-3">
         <Card data-reveal className="rounded-[32px] p-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-            Personal information
-          </p>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2">
-            {[
-              ["Full Name", session.user.name],
-              ["Email", session.user.email],
-              ["Focus", session.user.focus.replace("-", " ")],
-              ["Hydration goal", `${session.user.hydrationLiters.toFixed(1)} L/day`],
-            ].map(([label, value]) => (
-              <div key={String(label)} className="rounded-[24px] bg-muted/70 p-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                  {label}
-                </p>
-                <p className="mt-3 font-semibold capitalize">{value}</p>
-              </div>
-            ))}
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+              Body targets
+            </p>
+            <div className="rounded-2xl bg-primary/12 p-3 text-primary">
+              <Trophy className="h-4 w-4" />
+            </div>
           </div>
+          <p className="mt-5 text-4xl font-bold tracking-tight">
+            {session.user.currentWeightKg} kg
+          </p>
+          <p className="mt-2 text-muted-foreground">
+            Current weight • {session.user.targetWeightKg} kg target
+          </p>
+          <p className="mt-5 text-3xl font-bold">{session.user.bodyFatPercent}%</p>
+          <p className="mt-2 text-muted-foreground">Current body-fat estimate</p>
         </Card>
 
         <Card data-reveal className="rounded-[32px] p-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-            Current vs target
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+              Weekly structure
+            </p>
+            <div className="rounded-2xl bg-primary/12 p-3 text-primary">
+              <Sparkles className="h-4 w-4" />
+            </div>
+          </div>
+          <p className="mt-5 text-4xl font-bold tracking-tight">
+            {session.user.weeklyTrainingDays} days
           </p>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2">
-            {[
-              ["Body Weight", `${session.user.currentWeightKg} kg`, `${session.user.targetWeightKg} kg target`],
-              ["Body Fat", `${session.user.bodyFatPercent}%`, "14% target"],
-            ].map(([label, current, target]) => (
-              <div key={String(label)} className="rounded-[24px] bg-muted/70 p-5">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                  {label}
-                </p>
-                <p className="mt-4 text-4xl font-bold tracking-tight">{current}</p>
-                <p className="mt-2 text-sm text-primary">{target}</p>
-              </div>
-            ))}
+          <p className="mt-2 text-muted-foreground">Planned training frequency</p>
+          <p className="mt-5 text-3xl font-bold">{session.user.hydrationGoalLiters.toFixed(1)} L</p>
+          <p className="mt-2 text-muted-foreground">Daily hydration goal</p>
+        </Card>
+
+        <Card data-reveal className="rounded-[32px] p-6">
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+              Premium layer
+            </p>
+            <div className="rounded-2xl bg-primary/12 p-3 text-primary">
+              <ShieldCheck className="h-4 w-4" />
+            </div>
           </div>
-          <div className="mt-5 flex flex-wrap gap-3">
-            <Button variant="secondary" size="sm">
-              Metric
-            </Button>
-            <Button variant="ghost" size="sm">
-              Imperial
-            </Button>
-          </div>
+          <p className="mt-5 text-4xl font-bold tracking-tight capitalize">
+            {session.user.membership}
+          </p>
+          <p className="mt-2 text-muted-foreground">
+            {session.user.membership === "pro"
+              ? "Professional access is enabled across your performance stack."
+              : session.user.membership === "plus"
+                ? "AI recommendations are active across nutrition and training."
+                : "Upgrade to Plus or Pro when you want additional guidance."}
+          </p>
         </Card>
       </section>
     </PageShell>

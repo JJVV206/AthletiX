@@ -1,16 +1,18 @@
 import { BrowserRouter, Navigate, Outlet, Route, Routes } from "react-router-dom";
 import { AppShell } from "@/components/app/app-shell";
 import { useSession } from "@/context/session-context";
-import { AnalyticsPage } from "@/pages/analytics-page";
 import { AuthPage } from "@/pages/auth-page";
 import { DashboardPage } from "@/pages/dashboard-page";
+import { InsightsPage } from "@/pages/insights-page";
 import { LandingPage } from "@/pages/landing-page";
 import { NotFoundPage } from "@/pages/not-found-page";
 import { NutritionPage } from "@/pages/nutrition-page";
 import { OnboardingGoalsPage } from "@/pages/onboarding-goals-page";
+import { ProfessionalsPage } from "@/pages/professionals-page";
+import { ProgressPage } from "@/pages/progress-page";
 import { ProfilePage } from "@/pages/profile-page";
-import { RoutinesPage } from "@/pages/routines-page";
-import { WorkoutsPage } from "@/pages/workouts-page";
+import { SportsPage } from "@/pages/sports-page";
+import { TrainingPage } from "@/pages/training-page";
 
 function ProtectedRoute() {
   const { session } = useSession();
@@ -69,10 +71,15 @@ export default function App() {
           <Route path="/app" element={<AppShell />}>
             <Route index element={<DashboardPage />} />
             <Route path="nutrition" element={<NutritionPage />} />
-            <Route path="workouts" element={<WorkoutsPage />} />
-            <Route path="routines" element={<RoutinesPage />} />
-            <Route path="analytics" element={<AnalyticsPage />} />
+            <Route path="training" element={<TrainingPage />} />
+            <Route path="sports" element={<SportsPage />} />
+            <Route path="progress" element={<ProgressPage />} />
+            <Route path="insights" element={<InsightsPage />} />
+            <Route path="professionals" element={<ProfessionalsPage />} />
             <Route path="profile" element={<ProfilePage />} />
+            <Route path="workouts" element={<Navigate to="/app/training" replace />} />
+            <Route path="routines" element={<Navigate to="/app/training" replace />} />
+            <Route path="analytics" element={<Navigate to="/app/progress" replace />} />
           </Route>
         </Route>
         <Route path="*" element={<NotFoundPage />} />

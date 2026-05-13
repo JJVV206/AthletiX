@@ -16,7 +16,7 @@ export function Avatar({ name, className }: AvatarProps) {
   return (
     <div
       className={cn(
-        "flex h-11 w-11 items-center justify-center rounded-full border border-white/60 bg-gradient-to-br from-primary/20 via-white to-lime/20 text-sm font-bold text-primary shadow-soft",
+        "flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-gradient-to-br from-primary/20 via-slate-900 to-sky/15 text-sm font-bold text-primary shadow-soft",
         className,
       )}
       aria-label={name}

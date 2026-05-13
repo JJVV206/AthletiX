@@ -1,4 +1,15 @@
-import { ArrowRight, CheckCircle2, Play, Quote, Sparkles } from "lucide-react";
+import {
+  Apple,
+  ArrowRight,
+  Brain,
+  CheckCircle2,
+  Dumbbell,
+  ShieldCheck,
+  Sparkles,
+  Target,
+  Trophy,
+  Users,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { Logo } from "@/components/logo";
 import { DevicePreview } from "@/components/public/device-preview";
@@ -6,56 +17,53 @@ import { PageShell } from "@/components/page-shell";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { sportCards } from "@/data/mock-data";
 
-const features = [
+const pillars = [
   {
-    title: "Hyper-personalized nutrition",
+    title: "Fuel management",
     description:
-      "Adaptive meal planning tuned to training intensity, recovery trends, and hunger signals.",
-    tone: "bg-white",
-    descriptionTone: "text-muted-foreground",
+      "Track calories, macros, hydration, and food patterns with the speed serious athletes expect.",
+    icon: Apple,
   },
   {
-    title: "Biometric sync",
+    title: "Training system",
     description:
-      "Real-time flow from your wearables into a single dashboard that actually prioritizes signal over noise.",
-    tone: "bg-primary text-white",
-    descriptionTone: "text-primary-foreground/80",
+      "Organize routines, log sessions, and track progression with structure that feels closer to a pro logbook than a casual gym app.",
+    icon: Dumbbell,
   },
   {
-    title: "Elite programming",
+    title: "Sport-aware modules",
     description:
-      "Structured strength and hypertrophy sessions that react to the reality of your week.",
-    tone: "bg-muted",
-    descriptionTone: "text-muted-foreground",
+      "Unlock widgets, dashboards, and workflows that adapt to strength, tennis, padel, soccer, and basketball.",
+    icon: Trophy,
   },
   {
-    title: "Unified community",
+    title: "Premium guidance",
     description:
-      "Goal-based cohorts, coach touchpoints, and milestone rituals to keep momentum durable.",
-    tone: "bg-white",
-    descriptionTone: "text-muted-foreground",
+      "Layer in AI recommendations with Plus or direct access to sport-specific professionals with Pro.",
+    icon: Brain,
   },
 ];
 
-const workflow = [
+const stack = [
   {
-    step: "01",
-    title: "Initial vitality assessment",
+    eyebrow: "Nutrition",
+    title: "Track your fuel like it affects performance, because it does.",
     description:
-      "Vitalia maps your baseline through a guided five-minute intake covering training history, sleep, and metabolic intent.",
+      "Calorie targets, macro pacing, meal history, hydration, and quick logging built for users who want precision without friction.",
   },
   {
-    step: "02",
-    title: "Dynamic adaptive planning",
+    eyebrow: "Training",
+    title: "Run your week with the discipline of a performance team.",
     description:
-      "Nutrition, sessions, and recovery all rebalance automatically when your energy and consistency shift.",
+      "Plan training blocks, log sets and reps, capture notes, and keep progression visible across sessions and cycles.",
   },
   {
-    step: "03",
-    title: "Performance checkpoints",
+    eyebrow: "Guidance",
+    title: "Add intelligence when you need it, not noise when you do not.",
     description:
-      "Weekly reviews surface the small changes that produce the next jump in vitality score, strength, and adherence.",
+      "AI recommendations surface useful next moves, while Pro opens direct access to specialists who understand your sport.",
   },
 ];
 
@@ -63,31 +71,35 @@ const plans = [
   {
     name: "Free",
     price: "$0",
-    description: "Essential tools for getting started.",
-    cta: "Start Free",
+    description: "Core tracking tools for disciplined self-management.",
     featured: false,
-    perks: ["Basic workout library", "Daily calorie tracking", "1 wearable integration"],
+    perks: [
+      "Nutrition dashboard and food logging",
+      "Training organization and workout tracking",
+      "One sport profile with progress history",
+    ],
   },
   {
-    name: "Elite",
-    price: "$24",
-    description: "The full adaptive wellness experience.",
-    cta: "Go Elite",
+    name: "Plus",
+    price: "$19",
+    description: "Premium guidance for users who want sharper decision-making.",
     featured: true,
     perks: [
-      "AI-adaptive nutrition",
-      "Professional coaching plans",
-      "Unlimited device sync",
-      "Deep biometric analysis",
+      "AI recommendations and weekly insights",
+      "Adaptive performance prompts",
+      "Advanced trend reviews and smart recovery cues",
     ],
   },
   {
     name: "Pro",
-    price: "$49",
-    description: "For serious athletes and hybrid performers.",
-    cta: "Start Pro",
+    price: "$59",
+    description: "The elite layer with direct access to professionals.",
     featured: false,
-    perks: ["Everything in Elite", "1-on-1 virtual consults", "Team management tools"],
+    perks: [
+      "Everything in Plus",
+      "Sport-specific professionals and consults",
+      "Higher-touch support for serious athletes",
+    ],
   },
 ];
 
@@ -97,55 +109,61 @@ export function LandingPage() {
       <div className="container py-6 md:py-8">
         <header
           data-reveal
-          className="flex items-center justify-between rounded-[30px] border border-white/70 bg-white/80 px-5 py-4 shadow-soft backdrop-blur"
+          className="glass-panel flex items-center justify-between px-5 py-4"
         >
           <Logo />
-          <Button asChild className="hidden sm:inline-flex">
-            <Link to="/auth">Start Your Journey</Link>
-          </Button>
+          <div className="flex items-center gap-3">
+            <Button asChild variant="ghost" className="hidden sm:inline-flex">
+              <a href="#memberships">Memberships</a>
+            </Button>
+            <Button asChild>
+              <Link to="/auth">Start Free</Link>
+            </Button>
+          </div>
         </header>
 
         <section className="relative grid gap-10 pb-20 pt-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div className="space-y-8">
-            <Badge data-reveal variant="lime" className="w-fit">
-              New · AI Meal Generation
+            <Badge data-reveal className="w-fit bg-primary/12 text-primary">
+              Premium sports-performance platform
             </Badge>
             <div data-reveal>
-              <h1 className="max-w-xl font-display text-5xl font-bold tracking-tight text-foreground md:text-7xl">
-                Wellness, <span className="text-primary italic">intelligent</span> &
-                unified
+              <h1 className="max-w-3xl font-display text-5xl font-bold tracking-tight text-foreground md:text-7xl">
+                Train like an athlete.
+                <span className="block text-primary">Track like a pro.</span>
               </h1>
-              <p className="mt-6 max-w-xl text-lg leading-8 text-muted-foreground">
-                The digital sanctuary for athletes, professionals, and anyone who needs
-                nutrition, programming, and recovery to finally work together.
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
+                AthletiX brings nutrition, training organization, sport-specific tools,
+                premium guidance, and professional support into one premium
+                performance system.
               </p>
             </div>
             <div data-reveal className="flex flex-wrap items-center gap-4">
               <Button asChild size="lg">
                 <Link to="/auth">
-                  Start Your Journey
+                  Start Free
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button variant="secondary" size="lg">
-                <Play className="mr-2 h-4 w-4" />
-                Watch Demo
+              <Button asChild size="lg" variant="outline">
+                <a href="#platform">Explore the platform</a>
               </Button>
             </div>
-            <div data-reveal className="flex items-center gap-4">
-              <div className="flex -space-x-3">
-                {["AR", "JM", "DK"].map((initials) => (
-                  <div
-                    key={initials}
-                    className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-white bg-primary/15 text-sm font-bold text-primary"
-                  >
-                    {initials}
-                  </div>
-                ))}
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Join <span className="font-semibold text-primary">12,000+</span> members
-              </p>
+            <div data-reveal className="grid gap-4 sm:grid-cols-3">
+              {[
+                ["Fuel", "Macros, hydration, fast logging"],
+                ["Training", "Programs, sessions, progression"],
+                ["Sport", "Modular dashboards by discipline"],
+              ].map(([title, description]) => (
+                <Card key={title} className="rounded-[26px] p-5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary/80">
+                    {title}
+                  </p>
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                    {description}
+                  </p>
+                </Card>
+              ))}
             </div>
           </div>
           <div data-reveal className="relative lg:pl-8">
@@ -153,84 +171,83 @@ export function LandingPage() {
           </div>
         </section>
 
-        <section className="space-y-10 py-20">
-          <div data-reveal className="mx-auto max-w-2xl text-center">
+        <section id="platform" className="space-y-10 py-20">
+          <div data-reveal className="mx-auto max-w-3xl text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary">
-              Built for the digital athlete
+              One athlete system
             </p>
             <h2 className="mt-4 font-display text-4xl font-bold md:text-5xl">
-              Precision without the clutter
+              Professional tools for your sport, made accessible to everyone
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Every surface is designed to turn health data into a calm, usable next
-              move.
+              Serious enough for ambitious athletes, intuitive enough for daily use,
+              polished enough for early users and investors to believe immediately.
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {features.map((feature) => (
-              <Card
-                key={feature.title}
-                data-reveal
-                className={`min-h-[240px] rounded-[30px] p-7 ${feature.tone}`}
-              >
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/80 text-primary shadow-soft">
-                  <Sparkles className="h-5 w-5" />
-                </div>
-                <h3 className="mt-10 text-2xl font-bold tracking-tight">{feature.title}</h3>
-                <p className={`mt-4 text-sm leading-7 ${feature.descriptionTone}`}>
-                  {feature.description}
-                </p>
-              </Card>
-            ))}
+            {pillars.map((pillar) => {
+              const Icon = pillar.icon;
+              return (
+                <Card key={pillar.title} data-reveal className="min-h-[260px] rounded-[30px] p-7">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/12 text-primary">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="mt-10 text-2xl font-bold tracking-tight">{pillar.title}</h3>
+                  <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                    {pillar.description}
+                  </p>
+                </Card>
+              );
+            })}
           </div>
         </section>
 
-        <section className="grid gap-10 py-20 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+        <section className="grid gap-10 py-20 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div data-reveal className="space-y-4">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary">
-              The workflow
+              Product stack
             </p>
             <h2 className="font-display text-4xl font-bold md:text-5xl">
-              Simple, seamless, superior
+              Fuel, training, sport, guidance
             </h2>
             <p className="text-lg text-muted-foreground">
-              A system that keeps intensity high while decision fatigue stays low.
+              The product is modular by design so the user sees one platform, but feels
+              the right tools for their discipline.
             </p>
           </div>
           <div className="space-y-6">
-            {workflow.map((item, index) => (
-              <Card
-                key={item.step}
-                data-reveal
-                className="grid gap-6 rounded-[32px] p-8 md:grid-cols-[100px_1fr]"
-              >
-                <div className="text-6xl font-extrabold tracking-tight text-muted/60">
-                  {item.step}
-                </div>
-                <div>
-                  <div
-                    className={`mb-6 rounded-[28px] ${
-                      index === 0
-                        ? "bg-gradient-to-br from-primary/15 to-lime/20"
-                        : index === 1
-                          ? "bg-gradient-to-br from-sky/55 to-white"
-                          : "bg-gradient-to-br from-lime/20 to-primary/10"
-                    } p-6`}
-                  >
-                    <div className="grid grid-cols-3 gap-3">
-                      {[48, 82, 64].map((height) => (
-                        <div
-                          key={height}
-                          className="rounded-t-2xl bg-primary/70"
-                          style={{ height }}
-                        />
-                      ))}
-                    </div>
-                  </div>
+            {stack.map((item, index) => (
+              <Card key={item.eyebrow} data-reveal className="rounded-[32px] p-8">
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary/80">
+                  {item.eyebrow}
+                </p>
+                <div
+                  className={`mt-6 rounded-[28px] p-6 ${
+                    index === 0
+                      ? "bg-gradient-to-r from-primary/12 to-sky/10"
+                      : index === 1
+                        ? "bg-gradient-to-r from-slate-900 to-primary/10"
+                        : "bg-gradient-to-r from-lime/10 to-primary/10"
+                  }`}
+                >
                   <h3 className="text-3xl font-bold tracking-tight">{item.title}</h3>
-                  <p className="mt-4 max-w-xl text-base leading-8 text-muted-foreground">
+                  <p className="mt-4 max-w-2xl text-base leading-8 text-muted-foreground">
                     {item.description}
                   </p>
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    {[
+                      "Premium dashboards",
+                      "Fast logging",
+                      "Athlete-grade structure",
+                    ].map((value) => (
+                      <div
+                        key={value}
+                        className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground"
+                      >
+                        {value}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </Card>
             ))}
@@ -238,13 +255,37 @@ export function LandingPage() {
         </section>
 
         <section className="py-20">
-          <div data-reveal className="mx-auto max-w-2xl text-center">
+          <div data-reveal className="flex flex-col gap-4 text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary">
+              Supported sports
+            </p>
             <h2 className="font-display text-4xl font-bold md:text-5xl">
-              Invest in your future self
+              One platform. Multiple disciplines.
+            </h2>
+          </div>
+          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-5">
+            {sportCards.map((sport) => (
+              <Card key={sport.value} data-reveal className="rounded-[28px] p-6">
+                <p className="text-lg font-bold">{sport.title}</p>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                  {sport.description}
+                </p>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <section id="memberships" className="py-20">
+          <div data-reveal className="mx-auto max-w-2xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary">
+              Memberships
+            </p>
+            <h2 className="mt-4 font-display text-4xl font-bold md:text-5xl">
+              Free, Plus, and Pro
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Plans that scale with your ambition, from habit-building to elite
-              performance.
+              Start with the fundamentals. Add intelligence when you want sharper
+              guidance. Step into Pro when you want specialist support.
             </p>
           </div>
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
@@ -253,82 +294,96 @@ export function LandingPage() {
                 key={plan.name}
                 data-reveal
                 className={`rounded-[34px] p-8 ${
-                  plan.featured ? "bg-primary text-primary-foreground" : ""
+                  plan.featured ? "border-primary/40 bg-primary/10" : ""
                 }`}
               >
-                {plan.featured && (
-                  <Badge variant="lime" className="mb-6 w-fit bg-lime/20 text-lime">
-                    Most popular
-                  </Badge>
-                )}
-                <h3 className="text-3xl font-bold">{plan.name}</h3>
-                <p
-                  className={`mt-3 text-sm ${
-                    plan.featured ? "text-primary-foreground/80" : "text-muted-foreground"
-                  }`}
-                >
+                {plan.featured ? (
+                  <Badge className="mb-6 w-fit bg-primary text-primary-foreground">Most Popular</Badge>
+                ) : null}
+                <div className="flex items-end justify-between gap-4">
+                  <div>
+                    <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+                      {plan.name}
+                    </p>
+                    <p className="mt-3 text-5xl font-extrabold tracking-tight">
+                      {plan.price}
+                      <span className="ml-2 text-base font-medium text-muted-foreground">
+                        /mo
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <p className="mt-4 text-base leading-7 text-muted-foreground">
                   {plan.description}
                 </p>
-                <div className="mt-8 flex items-end gap-2">
-                  <span className="text-5xl font-extrabold">{plan.price}</span>
-                  <span className={plan.featured ? "text-primary-foreground/80" : "text-muted-foreground"}>
-                    /mo
-                  </span>
-                </div>
-                <ul className="mt-8 space-y-4 text-sm">
+                <div className="mt-8 space-y-4">
                   {plan.perks.map((perk) => (
-                    <li key={perk} className="flex items-center gap-3">
-                      <CheckCircle2 className="h-4 w-4" />
-                      {perk}
-                    </li>
+                    <div key={perk} className="flex gap-3">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                      <span className="text-sm leading-6 text-muted-foreground">{perk}</span>
+                    </div>
                   ))}
-                </ul>
-                <Button
-                  variant={plan.featured ? "secondary" : "outline"}
-                  className="mt-10 w-full"
-                >
-                  {plan.cta}
+                </div>
+                <Button className="mt-8 w-full" variant={plan.featured ? "default" : "outline"}>
+                  {plan.name === "Free" ? "Start Free" : `Choose ${plan.name}`}
                 </Button>
               </Card>
             ))}
           </div>
         </section>
 
-        <section data-reveal className="py-20">
-          <Card className="overflow-hidden rounded-[36px] p-8 md:p-12">
-            <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+        <section className="pb-10 pt-8">
+          <Card
+            data-reveal
+            className="rounded-[40px] bg-gradient-to-r from-slate-950 via-slate-900 to-primary/15 p-8 md:p-12"
+          >
+            <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
               <div>
-                <Quote className="h-10 w-10 text-primary" />
-                <p className="mt-8 max-w-3xl font-display text-4xl font-bold leading-tight md:text-5xl">
-                  “Vitalia acts like the personal coach I never knew I could afford.”
+                <p className="text-sm font-semibold uppercase tracking-[0.28em] text-primary">
+                  Ready to build the premium version of your sport?
                 </p>
-                <p className="mt-8 text-base font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-                  Alex Rivers · Elite Member · 92 vitality score
+                <h2 className="mt-4 max-w-2xl font-display text-4xl font-bold md:text-5xl">
+                  Fuel, train, and improve in one platform.
+                </h2>
+                <p className="mt-4 max-w-2xl text-base leading-8 text-muted-foreground">
+                  The new AthletiX direction is clear: a serious sports-tech product for
+                  ambitious everyday athletes.
                 </p>
               </div>
-              <div className="rounded-[32px] bg-gradient-to-br from-primary via-primary/90 to-lime p-8 text-primary-foreground">
-                <p className="text-sm leading-7 text-primary-foreground/80">
-                  The app does not just display metrics. It filters the noise, shows what
-                  matters today, and makes consistency feel sophisticated rather than
-                  exhausting.
-                </p>
-                <Button asChild variant="secondary" className="mt-8">
-                  <Link to="/auth">Build My Plan</Link>
-                </Button>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {[
+                  {
+                    label: "Premium startup feel",
+                    icon: Sparkles,
+                  },
+                  {
+                    label: "Sport-specific intelligence",
+                    icon: Target,
+                  },
+                  {
+                    label: "AI in Plus",
+                    icon: ShieldCheck,
+                  },
+                  {
+                    label: "Professionals in Pro",
+                    icon: Users,
+                  },
+                ].map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <div
+                      key={item.label}
+                      className="rounded-[26px] border border-white/10 bg-white/5 p-5"
+                    >
+                      <Icon className="h-5 w-5 text-primary" />
+                      <p className="mt-4 font-semibold">{item.label}</p>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </Card>
         </section>
-
-        <footer data-reveal className="border-t border-white/70 py-10 text-center text-sm text-muted-foreground">
-          <Logo className="justify-center" />
-          <div className="mt-6 flex items-center justify-center gap-6">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Support</a>
-          </div>
-          <p className="mt-6">© 2024 Vitalia. The Digital Sanctuary.</p>
-        </footer>
       </div>
     </PageShell>
   );

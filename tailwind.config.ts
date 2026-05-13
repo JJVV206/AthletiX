@@ -47,15 +47,15 @@ const config: Config = {
         "3xl": "2rem",
       },
       boxShadow: {
-        glow: "0 18px 60px rgba(17, 143, 100, 0.18)",
-        float: "0 30px 80px rgba(12, 20, 33, 0.12)",
-        soft: "0 14px 45px rgba(27, 46, 60, 0.08)",
+        glow: "0 18px 60px rgba(0, 209, 178, 0.18)",
+        float: "0 24px 80px rgba(3, 8, 16, 0.45)",
+        soft: "0 12px 40px rgba(5, 10, 18, 0.28)",
       },
       backgroundImage: {
         halo:
-          "radial-gradient(circle at center, rgba(108, 255, 155, 0.28), rgba(108, 255, 155, 0) 66%)",
+          "radial-gradient(circle at center, rgba(0, 209, 178, 0.24), rgba(0, 209, 178, 0) 66%)",
         aurora:
-          "radial-gradient(circle at top left, rgba(151, 245, 211, 0.45), transparent 42%), radial-gradient(circle at 80% 20%, rgba(191, 255, 107, 0.25), transparent 30%), linear-gradient(180deg, rgba(247,252,249,1) 0%, rgba(241,247,244,0.92) 100%)",
+          "radial-gradient(circle at top left, rgba(0, 209, 178, 0.18), transparent 34%), radial-gradient(circle at 82% 18%, rgba(68, 224, 255, 0.14), transparent 26%), linear-gradient(180deg, rgba(13,19,32,1) 0%, rgba(12,18,30,0.98) 100%)",
       },
       fontFamily: {
         sans: ["Manrope", "sans-serif"],
