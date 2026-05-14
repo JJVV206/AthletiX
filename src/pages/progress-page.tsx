@@ -12,19 +12,6 @@ export function ProgressPage() {
 
   return (
     <PageShell className="space-y-6">
-      <Card data-reveal className="rounded-[34px] bg-gradient-to-r from-slate-950 to-primary/10 p-8">
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">
-          Progress
-        </p>
-        <h1 className="mt-4 font-display text-5xl font-bold tracking-tight">
-          Performance trends, not vanity charts.
-        </h1>
-        <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">
-          Start with the few indicators that actually matter. Open deeper analysis only
-          when you are ready to review what is moving performance forward.
-        </p>
-      </Card>
-
       <section className="grid gap-4 lg:grid-cols-3">
         {[
           ["Weekly adherence", `${weeklySummary.adherenceRate}%`],

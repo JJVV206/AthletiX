@@ -58,34 +58,7 @@ export function TrainingPage() {
 
   return (
     <PageShell className="space-y-6">
-      <section className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
-        <Card className="rounded-[34px] bg-gradient-to-br from-slate-950 to-primary/10 p-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">
-            Training
-          </p>
-          <h1 className="mt-4 font-display text-5xl font-bold tracking-tight">
-            {workout.title}
-          </h1>
-          <p className="mt-3 max-w-2xl text-base leading-8 text-muted-foreground">
-            Today&apos;s session stays focused: review the summary first, then open the
-            exact exercise details you need while logging.
-          </p>
-          <div className="mt-8 grid gap-4 sm:grid-cols-3">
-            {[
-              ["Duration", formatLongDuration(workout.durationSeconds)],
-              ["Volume", `${formatNumber(workout.volumeKg)} kg`],
-              ["Progress", `${completedSets}/${Math.max(totalSets, 1)} sets`],
-            ].map(([label, value]) => (
-              <div key={label} className="rounded-[24px] bg-white/5 p-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                  {label}
-                </p>
-                <p className="mt-3 text-2xl font-bold">{value}</p>
-              </div>
-            ))}
-          </div>
-        </Card>
-
+      <section className="mx-auto w-full max-w-[21.5rem] sm:max-w-[24rem] xl:mx-0 xl:max-w-[28rem]">
         <Card className="rounded-[34px] p-8">
           <div className="flex items-center justify-between gap-4">
             <div>

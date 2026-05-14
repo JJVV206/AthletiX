@@ -23,34 +23,6 @@ export function WorkoutsPage() {
   return (
     <PageShell className="space-y-6">
       <section className="grid gap-6 lg:grid-cols-[1fr_0.9fr]">
-        <Card data-reveal className="rounded-[34px] bg-aurora p-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">
-            Session
-          </p>
-          <h1 className="mt-4 font-display text-5xl font-bold tracking-tight">
-            {workout.title}
-          </h1>
-          <p className="mt-3 text-base text-muted-foreground">{workout.startsAt}</p>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-                Duration
-              </p>
-              <p className="mt-2 text-4xl font-bold text-primary">
-                {formatLongDuration(workout.durationSeconds)}
-              </p>
-            </div>
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-                Volume
-              </p>
-              <p className="mt-2 text-4xl font-bold text-primary">
-                {formatNumber(workout.volumeKg)} kg
-              </p>
-            </div>
-          </div>
-        </Card>
-
         <Card data-reveal className="rounded-[34px] bg-primary p-8 text-center text-primary-foreground">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary-foreground/70">
             Rest timer

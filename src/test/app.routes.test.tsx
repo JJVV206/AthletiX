@@ -26,7 +26,7 @@ describe("app routing", () => {
 
     expect(
       await screen.findByRole("heading", {
-        name: /performance trends, not vanity charts/i,
+        name: /a few useful signals/i,
       }),
     ).toBeInTheDocument();
     expect(screen.getByText(/recent bests and movement/i)).toBeInTheDocument();

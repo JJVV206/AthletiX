@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Apple,
+  ChevronUp,
   Dumbbell,
   LayoutDashboard,
   LineChart,
@@ -95,31 +97,82 @@ export function AppSidebar() {
 export function BottomNav() {
   const location = useLocation();
   const mobileItems = navItems.slice(0, 5);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isManuallyExpanded, setIsManuallyExpanded] = useState(false);
+
+  useEffect(() => {
+    function handleScroll() {
+      const shouldCollapse = window.scrollY > 96;
+      setIsCollapsed(shouldCollapse);
+
+      if (shouldCollapse) {
+        setIsManuallyExpanded(false);
+      }
+    }
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setIsManuallyExpanded(false);
+  }, [location.pathname]);
+
+  const activeItem =
+    mobileItems.find(
+      (item) =>
+        location.pathname === item.href ||
+        (item.href !== "/app" && location.pathname.startsWith(item.href)),
+    ) ?? mobileItems[0];
+  const isExpanded = !isCollapsed || isManuallyExpanded;
+  const ActiveIcon = activeItem.icon;
 
   return (
-    <nav className="fixed inset-x-4 bottom-4 z-40 rounded-[28px] border border-white/10 bg-slate-950/90 px-2 py-2 shadow-float backdrop-blur xl:hidden">
-      <div className="flex items-center justify-between gap-1">
-        {mobileItems.map((item) => {
-          const Icon = item.icon;
-          const active =
-            location.pathname === item.href ||
-            (item.href !== "/app" && location.pathname.startsWith(item.href));
+    <div className="fixed inset-x-4 bottom-4 z-40 xl:hidden">
+      {isExpanded ? (
+        <nav className="rounded-[28px] border border-white/10 bg-slate-950/90 px-2 py-2 shadow-float backdrop-blur transition-all duration-300">
+          <div className="flex items-center justify-between gap-1">
+            {mobileItems.map((item) => {
+              const Icon = item.icon;
+              const active =
+                location.pathname === item.href ||
+                (item.href !== "/app" && location.pathname.startsWith(item.href));
 
-          return (
-            <Link
-              key={item.href}
-              to={item.href}
-              className={cn(
-                "flex min-w-0 flex-1 flex-col items-center gap-1 rounded-2xl px-2 py-2 text-[11px] font-semibold",
-                active ? "bg-primary/12 text-primary" : "text-muted-foreground",
-              )}
-            >
-              <Icon className="h-4 w-4" />
-              <span className="truncate">{item.label}</span>
-            </Link>
-          );
-        })}
-      </div>
-    </nav>
+              return (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  onClick={() => setIsManuallyExpanded(false)}
+                  className={cn(
+                    "flex min-w-0 flex-1 flex-col items-center gap-1 rounded-2xl px-2 py-2 text-[11px] font-semibold transition-all duration-300",
+                    active ? "bg-primary/12 text-primary" : "text-muted-foreground",
+                  )}
+                >
+                  <Icon className="h-4 w-4" />
+                  <span className="truncate">{item.label}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </nav>
+      ) : (
+        <div className="flex justify-center">
+          <button
+            type="button"
+            onClick={() => setIsManuallyExpanded(true)}
+            className="flex items-center gap-3 rounded-full border border-white/10 bg-slate-950/92 px-4 py-3 shadow-float backdrop-blur transition-all duration-300"
+            aria-label={`Expand navigation. Current section: ${activeItem.label}`}
+          >
+            <div className="flex items-center gap-3 rounded-full bg-primary/12 px-3 py-2 text-primary">
+              <ActiveIcon className="h-4 w-4" />
+              <span className="text-sm font-semibold">{activeItem.label}</span>
+            </div>
+            <ChevronUp className="h-4 w-4 text-muted-foreground" />
+          </button>
+        </div>
+      )}
+    </div>
   );
 }

@@ -30,20 +30,6 @@ export function InsightsPage() {
 
   return (
     <PageShell className="space-y-6">
-      <Card data-reveal className="rounded-[34px] bg-gradient-to-r from-slate-950 to-primary/10 p-8">
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">
-          Guidance
-        </p>
-        <h1 className="mt-4 font-display text-5xl font-bold tracking-tight">
-          Premium intelligence, not generic tips.
-        </h1>
-        <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">
-          The guidance layer is where AthletiX becomes more than tracking: AI in Plus,
-          professional support in Pro, and a clear value ladder that makes paying feel
-          natural.
-        </p>
-      </Card>
-
       <section className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
         <Card data-reveal className="rounded-[32px] p-8">
           <div className="flex items-center justify-between">

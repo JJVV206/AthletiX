@@ -527,19 +527,6 @@ export function NutritionPage() {
 
   return (
     <PageShell className="space-y-6">
-      <section data-reveal className="space-y-2">
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">
-          Fuel center
-        </p>
-        <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
-          Daily fueling
-        </h1>
-        <p className="max-w-2xl text-base leading-7 text-muted-foreground">
-          See what matters first: calories left, macros left, meals logged, and water.
-          Everything else lives one layer deeper.
-        </p>
-      </section>
-
       <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as NutritionTab)}>
         <TabsList>
           {moduleTabs.map((tab) => (
@@ -1032,22 +1019,25 @@ export function NutritionPage() {
             </>
           ) : (
             <>
-              <Card data-reveal className="rounded-[34px] p-8">
-                <div className="grid gap-8 xl:grid-cols-[0.85fr_1.15fr] xl:items-end">
+              <Card
+                data-reveal
+                className="mx-auto max-w-3xl rounded-[28px] p-4 sm:p-5 lg:p-6"
+              >
+                <div className="grid gap-4 sm:gap-5 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
                   <div>
                     <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
                       Today
                     </p>
-                    <p className="mt-4 text-7xl font-extrabold tracking-tight text-primary">
+                    <p className="mt-2 text-4xl font-extrabold tracking-tight text-primary sm:text-5xl">
                       {caloriesRemaining}
                     </p>
-                    <p className="mt-2 text-sm font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                    <p className="mt-1 text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground sm:text-sm">
                       kcal left
                     </p>
-                    <p className="mt-6 text-base text-foreground">{heroStatus}</p>
+                    <p className="mt-3 text-sm text-foreground">{heroStatus}</p>
                   </div>
 
-                  <div className="grid gap-4 sm:grid-cols-3">
+                  <div className="grid grid-cols-3 gap-2 sm:gap-3">
                     {[
                       {
                         label: "Protein",
@@ -1071,15 +1061,19 @@ export function NutritionPage() {
                         indicatorClassName: "bg-sky",
                       },
                     ].map((macro) => (
-                      <div key={macro.label} className="rounded-[24px] bg-white/5 p-5">
-                        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                      <div key={macro.label} className="rounded-[18px] bg-white/5 p-3 sm:rounded-[20px] sm:p-4">
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground sm:text-xs">
                           {macro.label}
                         </p>
-                        <p className="mt-3 text-3xl font-bold">{macro.remaining}g</p>
-                        <p className="mt-1 text-sm text-muted-foreground">left today</p>
+                        <p className="mt-1 text-xl font-bold sm:mt-2 sm:text-2xl">
+                          {macro.remaining}g
+                        </p>
+                        <p className="mt-0.5 text-[11px] text-muted-foreground sm:mt-1 sm:text-xs">
+                          left
+                        </p>
                         <Progress
                           value={(macro.current / macro.target) * 100}
-                          className="mt-4"
+                          className="mt-2 h-1.5 sm:mt-3"
                           indicatorClassName={macro.indicatorClassName}
                         />
                       </div>

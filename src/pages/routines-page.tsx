@@ -22,24 +22,6 @@ export function RoutinesPage() {
 
   return (
     <PageShell className="space-y-6">
-      <Card data-reveal className="rounded-[34px] p-8">
-        <Badge variant="subtle" className="w-fit text-primary">
-          {routine.phase}
-        </Badge>
-        <h1 className="mt-4 font-display text-5xl font-bold tracking-tight">
-          {routine.title}
-        </h1>
-        <p className="mt-3 text-base text-muted-foreground">
-          Created by {routine.author} • {routine.updatedAt}
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Button variant="secondary">Save Draft</Button>
-          <Button onClick={toggleRoutinePublish}>
-            {routine.published ? "Unpublish Routine" : "Publish Routine"}
-          </Button>
-        </div>
-      </Card>
-
       <section className="grid gap-6 xl:grid-cols-[1fr_360px]">
         <div className="space-y-6">
           {routine.days.map((day) => (

@@ -40,19 +40,6 @@ export function SportsPage() {
 
   return (
     <PageShell className="space-y-6">
-      <Card data-reveal className="rounded-[34px] bg-gradient-to-r from-slate-950 to-primary/10 p-8">
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">
-          Sport-aware platform
-        </p>
-        <h1 className="mt-4 font-display text-5xl font-bold tracking-tight">
-          Your app changes with your sport.
-        </h1>
-        <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">
-          Nutrition and training stay unified, but sport-specific dashboards, widgets,
-          and workflows adapt to the disciplines you selected in onboarding.
-        </p>
-      </Card>
-
       <section className="grid gap-6 lg:grid-cols-2">
         {user.sports.map((sport) => (
           <Card key={sport} data-reveal className="rounded-[32px] p-6">

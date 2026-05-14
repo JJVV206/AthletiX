@@ -10,19 +10,6 @@ export function AnalyticsPage() {
 
   return (
     <PageShell className="space-y-6">
-      <Card data-reveal className="rounded-[34px] bg-aurora p-8">
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">
-          Analytics hub
-        </p>
-        <h1 className="mt-4 font-display text-5xl font-bold tracking-tight">
-          Your transformation in high definition.
-        </h1>
-        <p className="mt-4 text-base leading-7 text-muted-foreground">
-          Weight trend, nutrition adherence, and strength progression are all moving in
-          the right direction.
-        </p>
-      </Card>
-
       <section className="grid gap-6 xl:grid-cols-[1fr_360px]">
         <Card data-reveal className="rounded-[32px] p-8">
           <div className="flex items-center justify-between">

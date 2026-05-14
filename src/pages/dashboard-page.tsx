@@ -4,12 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PageShell } from "@/components/page-shell";
 import { useAppState } from "@/context/app-state-context";
-import {
-  performanceFocusLabels,
-  sportLabels,
-  supportModeLabels,
-  trainingLevelLabels,
-} from "@/data/mock-data";
+import { supportModeLabels, trainingLevelLabels } from "@/data/mock-data";
 import {
   buildWeeklyNutritionSummary,
   getCaloriesRemaining,
@@ -44,49 +39,34 @@ export function DashboardPage() {
   );
 
   return (
-    <PageShell className="space-y-6">
-      <section data-reveal className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
-        <Card className="rounded-[34px] bg-gradient-to-br from-slate-950 via-slate-900 to-primary/12 p-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">
-            Today
-          </p>
-          <h1 className="mt-4 max-w-3xl font-display text-5xl font-bold tracking-tight">
-            Clear priorities, then deeper tools when you need them.
-          </h1>
-          <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">
-            You are aligned for {sportLabels[user.sports[0]]} with a{" "}
-            {performanceFocusLabels[user.performanceFocus].toLowerCase()} emphasis.
-            Protein is the main nutrition gap today and your next structured session is{" "}
-            {workout.title.toLowerCase()}.
-          </p>
-        </Card>
-
-        <Card className="rounded-[34px] p-8">
+    <PageShell className="space-y-4 sm:space-y-6">
+      <section data-reveal className="mx-auto w-full max-w-[21.5rem] sm:max-w-[24rem] xl:max-w-[26rem]">
+        <Card className="rounded-[28px] p-5 sm:rounded-[34px] sm:p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
             Performance score
           </p>
           <div className="mt-5 flex items-end justify-between gap-4">
-            <p className="text-6xl font-extrabold tracking-tight text-primary">
+            <p className="text-[4rem] font-extrabold leading-none tracking-tight text-primary sm:text-6xl">
               {user.performanceScore}
             </p>
-            <div className="rounded-2xl bg-primary/12 p-4 text-primary">
-              <Sparkles className="h-6 w-6" />
+            <div className="rounded-2xl bg-primary/12 p-3 text-primary sm:p-4">
+              <Sparkles className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
           </div>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-[24px] bg-white/5 p-4">
+          <div className="mt-5 grid gap-3 sm:mt-8 sm:gap-4 sm:grid-cols-2">
+            <div className="rounded-[18px] bg-white/5 p-3.5 sm:rounded-[24px] sm:p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
                 Training level
               </p>
-              <p className="mt-3 text-lg font-semibold">
+              <p className="mt-2.5 text-[15px] font-semibold sm:mt-3 sm:text-lg">
                 {trainingLevelLabels[user.trainingLevel]}
               </p>
             </div>
-            <div className="rounded-[24px] bg-white/5 p-4">
+            <div className="rounded-[18px] bg-white/5 p-3.5 sm:rounded-[24px] sm:p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
                 Support
               </p>
-              <p className="mt-3 text-lg font-semibold">
+              <p className="mt-2.5 text-[15px] font-semibold sm:mt-3 sm:text-lg">
                 {supportModeLabels[user.supportMode]}
               </p>
             </div>
@@ -94,95 +74,95 @@ export function DashboardPage() {
         </Card>
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-3">
-        <Card data-reveal className="rounded-[30px] p-6">
+      <section className="mx-auto grid w-full max-w-[21.5rem] gap-3 sm:max-w-none sm:gap-4 lg:grid-cols-3">
+        <Card data-reveal className="rounded-[26px] p-[1.125rem] sm:rounded-[30px] sm:p-6">
           <div className="flex items-center justify-between gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
                 Fuel
               </p>
-              <h2 className="mt-3 text-3xl font-bold">{caloriesRemaining} kcal</h2>
+              <h2 className="mt-2.5 text-[1.7rem] font-bold sm:mt-3 sm:text-3xl">{caloriesRemaining} kcal</h2>
               <p className="mt-2 text-sm text-muted-foreground">Remaining today</p>
             </div>
             <div className="rounded-2xl bg-primary/12 p-3 text-primary">
               <Droplets className="h-5 w-5" />
             </div>
           </div>
-          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+          <div className="mt-4 grid gap-2.5 sm:mt-6 sm:grid-cols-3 sm:gap-3">
             {[
               ["Protein", `${remainingMacros.protein}g left`],
               ["Carbs", `${remainingMacros.carbs}g left`],
               ["Hydration", `${hydrationProgress}% goal`],
             ].map(([label, value]) => (
-              <div key={label} className="rounded-[20px] bg-white/5 p-4">
+              <div key={label} className="rounded-[16px] bg-white/5 p-3 sm:rounded-[20px] sm:p-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                   {label}
                 </p>
-                <p className="mt-2 font-semibold">{value}</p>
+                <p className="mt-1.5 text-sm font-semibold sm:mt-2 sm:text-base">{value}</p>
               </div>
             ))}
           </div>
         </Card>
 
-        <Card data-reveal className="rounded-[30px] p-6">
+        <Card data-reveal className="rounded-[26px] p-[1.125rem] sm:rounded-[30px] sm:p-6">
           <div className="flex items-center justify-between gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
                 Training
               </p>
-              <h2 className="mt-3 text-2xl font-bold">{workout.title}</h2>
+              <h2 className="mt-2.5 text-lg font-bold sm:mt-3 sm:text-2xl">{workout.title}</h2>
               <p className="mt-2 text-sm text-muted-foreground">{workout.startsAt}</p>
             </div>
             <div className="rounded-2xl bg-primary/12 p-3 text-primary">
               <Dumbbell className="h-5 w-5" />
             </div>
           </div>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          <div className="mt-4 grid gap-2.5 sm:mt-6 sm:grid-cols-2 sm:gap-3">
             {[
               ["Set progress", `${completedSets}/${Math.max(totalSets, 1)} done`],
               ["Volume", `${formatNumber(workout.volumeKg)} kg`],
             ].map(([label, value]) => (
-              <div key={label} className="rounded-[20px] bg-white/5 p-4">
+              <div key={label} className="rounded-[16px] bg-white/5 p-3 sm:rounded-[20px] sm:p-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                   {label}
                 </p>
-                <p className="mt-2 font-semibold">{value}</p>
+                <p className="mt-1.5 text-sm font-semibold sm:mt-2 sm:text-base">{value}</p>
               </div>
             ))}
           </div>
         </Card>
 
-        <Card data-reveal className="rounded-[30px] p-6">
+        <Card data-reveal className="rounded-[26px] p-[1.125rem] sm:rounded-[30px] sm:p-6">
           <div className="flex items-center justify-between gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
                 Progress
               </p>
-              <h2 className="mt-3 text-3xl font-bold">{weeklySummary.adherenceRate}%</h2>
+              <h2 className="mt-2.5 text-[1.7rem] font-bold sm:mt-3 sm:text-3xl">{weeklySummary.adherenceRate}%</h2>
               <p className="mt-2 text-sm text-muted-foreground">Weekly adherence</p>
             </div>
             <div className="rounded-2xl bg-primary/12 p-3 text-primary">
               <Trophy className="h-5 w-5" />
             </div>
           </div>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          <div className="mt-4 grid gap-2.5 sm:mt-6 sm:grid-cols-2 sm:gap-3">
             {[
               ["Best streak", `${weeklySummary.bestStreak} days`],
               ["Next milestone", analytics.milestoneDate],
             ].map(([label, value]) => (
-              <div key={label} className="rounded-[20px] bg-white/5 p-4">
+              <div key={label} className="rounded-[16px] bg-white/5 p-3 sm:rounded-[20px] sm:p-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                   {label}
                 </p>
-                <p className="mt-2 font-semibold">{value}</p>
+                <p className="mt-1.5 text-sm font-semibold sm:mt-2 sm:text-base">{value}</p>
               </div>
             ))}
           </div>
         </Card>
       </section>
 
-      <section className="grid gap-4 xl:grid-cols-[0.95fr_1.05fr]">
-        <Card data-reveal className="rounded-[30px] p-6">
+      <section className="mx-auto grid w-full max-w-[21.5rem] gap-3 sm:max-w-none sm:gap-4 xl:grid-cols-[0.95fr_1.05fr]">
+        <Card data-reveal className="rounded-[26px] p-[1.125rem] sm:rounded-[30px] sm:p-6">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
             Next actions
           </p>
@@ -192,7 +172,7 @@ export function DashboardPage() {
                 asChild
                 key={action.href}
                 variant="outline"
-                className="h-auto justify-between rounded-[22px] px-5 py-4"
+                className="h-auto justify-between rounded-[20px] px-4 py-4 sm:rounded-[22px] sm:px-5"
               >
                 <Link to={action.href}>
                   <span>{action.label}</span>
@@ -203,13 +183,13 @@ export function DashboardPage() {
           </div>
         </Card>
 
-        <Card data-reveal className="rounded-[30px] p-6">
+        <Card data-reveal className="rounded-[26px] p-[1.125rem] sm:rounded-[30px] sm:p-6">
           <div className="flex items-center justify-between gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
                 Deeper insight
               </p>
-              <h2 className="mt-3 text-2xl font-bold">What to review next</h2>
+              <h2 className="mt-3 text-xl font-bold sm:text-2xl">What to review next</h2>
             </div>
             <div className="rounded-2xl bg-primary/12 p-3 text-primary">
               <Brain className="h-5 w-5" />
