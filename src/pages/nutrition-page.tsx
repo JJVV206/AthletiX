@@ -1,4 +1,5 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { Link, useOutletContext } from "react-router-dom";
 import {
   ArrowLeft,
   BadgeCheck,
@@ -19,7 +20,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { type AppShellOutletContext } from "@/components/app/app-shell";
 import { PageShell } from "@/components/page-shell";
 import { useAppState } from "@/context/app-state-context";
 import {
@@ -38,14 +39,17 @@ import {
 import { cn } from "@/lib/utils";
 import { FoodCategory, FoodDatabaseEntry, NutritionTargetStyle } from "@/types/models";
 
-type NutritionTab = "today" | "targets" | "history";
+type NutritionSection = "today" | "targets" | "history";
 type ComposerSurface = "search" | "photo" | "scan" | "meal";
 type ComposerLibraryTab = "database" | "favorites" | "created";
 
-const moduleTabs: Array<{ value: NutritionTab; label: string }> = [
-  { value: "today", label: "Today" },
-  { value: "targets", label: "Targets" },
-  { value: "history", label: "History" },
+const nutritionSectionLinks: Array<{
+  value: Exclude<NutritionSection, "today">;
+  label: string;
+  href: string;
+}> = [
+  { value: "targets", label: "Targets", href: "/app/nutrition/targets" },
+  { value: "history", label: "History", href: "/app/nutrition/history" },
 ];
 
 const categoryLabels: Record<FoodCategory | "all", string> = {
@@ -267,7 +271,50 @@ function MealEntryList({
   );
 }
 
-export function NutritionPage() {
+function NutritionSectionNav({
+  currentSection,
+}: {
+  currentSection?: Exclude<NutritionSection, "today">;
+}) {
+  return (
+    <Card
+      data-reveal
+      className="rounded-[28px] border-sky/10 bg-[linear-gradient(180deg,rgba(24,34,49,0.92)_0%,rgba(14,22,34,0.98)_100%)] p-4 sm:p-5"
+    >
+      <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-300/82">
+        Jump to section
+      </p>
+      <div className="mt-4 rounded-[24px] border border-white/6 bg-[linear-gradient(135deg,rgba(35,47,64,0.92),rgba(21,30,43,0.98))] p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
+        <div className="grid grid-cols-2 gap-2">
+          {nutritionSectionLinks.map((tab) => {
+            const active = currentSection === tab.value;
+
+            return (
+              <Button
+                asChild
+                key={tab.value}
+                variant="ghost"
+                className={cn(
+                  "h-14 rounded-full px-4 text-sm font-semibold transition sm:text-base",
+                  active
+                    ? "bg-[linear-gradient(135deg,rgba(171,198,233,1),rgba(132,169,220,1))] text-slate-950 shadow-[0_12px_28px_rgba(98,131,182,0.32)] hover:brightness-105"
+                    : "bg-transparent text-slate-300/88 hover:bg-white/[0.06] hover:text-white",
+                )}
+              >
+                <Link to={tab.href} aria-current={active ? "page" : undefined}>
+                  {tab.label}
+                </Link>
+              </Button>
+            );
+          })}
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+export function NutritionPage({ section = "today" }: { section?: NutritionSection }) {
+  const { setBottomNavVisible } = useOutletContext<AppShellOutletContext>();
   const {
     nutrition,
     addFoodToMeal,
@@ -284,7 +331,6 @@ export function NutritionPage() {
     updateNutritionTargets,
   } = useAppState();
 
-  const [activeTab, setActiveTab] = useState<NutritionTab>("today");
   const [selectedMealId, setSelectedMealId] = useState(
     nutrition.meals[0]?.id ?? "breakfast",
   );
@@ -389,6 +435,7 @@ export function NutritionPage() {
   }, [composerLibraryTab, createdFoods, favoriteFoods, filteredFoods, recentFoods, searchQuery]);
   const visibleLibraryFoods = libraryFoods.slice(0, visibleFoodCount);
   const canShowMoreFoods = libraryFoods.length > visibleFoodCount;
+  const recentSearchTerms = nutrition.recentSearches.slice(0, 6);
   const foodSectionTitle =
     composerLibraryTab === "favorites"
       ? searchQuery.trim()
@@ -401,6 +448,16 @@ export function NutritionPage() {
         : searchQuery.trim()
           ? "Matching foods"
           : "Recently entered";
+
+  function commitSearchQuery(query: string) {
+    const normalized = query.trim();
+    if (normalized.length < 2) return;
+    recordNutritionSearch(normalized);
+  }
+
+  const isTodayPage = section === "today";
+  const isTargetsPage = section === "targets";
+  const isHistoryPage = section === "history";
 
   const heroStatus = useMemo(() => {
     const deficits = [
@@ -525,18 +582,16 @@ export function NutritionPage() {
     setVisibleFoodCount(5);
   }, [composerLibraryTab, composerMealId, searchQuery]);
 
+  useEffect(() => {
+    setBottomNavVisible(!composerMealId);
+
+    return () => setBottomNavVisible(true);
+  }, [composerMealId, setBottomNavVisible]);
+
   return (
     <PageShell className="space-y-6">
-      <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as NutritionTab)}>
-        <TabsList>
-          {moduleTabs.map((tab) => (
-            <TabsTrigger key={tab.value} value={tab.value}>
-              {tab.label}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-
-        <TabsContent value="today" className="space-y-6">
+      {isTodayPage ? (
+        <section className="space-y-6">
           {composerMealId ? (
             <>
               <div data-reveal className="flex items-center justify-between gap-4">
@@ -585,9 +640,12 @@ export function NutritionPage() {
                           ref={searchInputRef}
                           placeholder="Search foods"
                           value={searchQuery}
-                          onChange={(event) => {
-                            setSearchQuery(event.target.value);
-                            recordNutritionSearch(event.target.value);
+                          onBlur={() => commitSearchQuery(searchQuery)}
+                          onChange={(event) => setSearchQuery(event.target.value)}
+                          onKeyDown={(event) => {
+                            if (event.key === "Enter") {
+                              commitSearchQuery(searchQuery);
+                            }
                           }}
                         />
                       </div>
@@ -601,6 +659,32 @@ export function NutritionPage() {
                         <Barcode className="h-5 w-5" />
                       </Button>
                     </div>
+
+                    {recentSearchTerms.length > 0 ? (
+                      <div className="mt-4 space-y-3">
+                        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                          Recent searches
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {recentSearchTerms.map((term) => (
+                            <button
+                              key={term}
+                              type="button"
+                              className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-muted-foreground transition hover:border-primary/30 hover:bg-primary/10 hover:text-foreground"
+                              onClick={() => {
+                                setSearchQuery(term);
+                                setComposerSurface("search");
+                                setComposerLibraryTab("database");
+                                commitSearchQuery(term);
+                                searchInputRef.current?.focus();
+                              }}
+                            >
+                              {term}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
 
                     <div className="mt-6 flex flex-wrap gap-2 border-b border-white/10 pb-1">
                       {[
@@ -1023,18 +1107,52 @@ export function NutritionPage() {
                 data-reveal
                 className="mx-auto max-w-3xl rounded-[28px] p-4 sm:p-5 lg:p-6"
               >
-                <div className="grid gap-4 sm:gap-5 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
-                  <div>
-                    <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-                      Today
-                    </p>
-                    <p className="mt-2 text-4xl font-extrabold tracking-tight text-primary sm:text-5xl">
-                      {caloriesRemaining}
-                    </p>
-                    <p className="mt-1 text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground sm:text-sm">
-                      kcal left
-                    </p>
-                    <p className="mt-3 text-sm text-foreground">{heroStatus}</p>
+                <div className="grid gap-4">
+                  <div className="grid grid-cols-3 items-start gap-2 sm:grid-cols-[280px_minmax(0,1fr)] sm:gap-4">
+                    <div className="col-span-1 min-w-0 sm:col-auto">
+                      <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+                        Today
+                      </p>
+                      <p className="mt-2 text-4xl font-extrabold tracking-tight text-primary sm:text-5xl">
+                        {caloriesRemaining}
+                      </p>
+                      <p className="mt-1 text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground sm:text-sm">
+                        kcal left
+                      </p>
+                      <p className="mt-3 text-sm text-foreground">{heroStatus}</p>
+                    </div>
+
+                    <div className="col-span-2 flex h-full flex-col rounded-[20px] bg-white/5 p-3.5 sm:col-auto sm:p-5">
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground sm:text-xs">
+                        Week goal
+                      </p>
+                      <p className="mt-2 text-xl font-bold sm:text-2xl">
+                        {weeklySummary.daysWithinTarget}/7
+                      </p>
+                      <p className="mt-1 text-[11px] text-muted-foreground sm:text-xs">
+                        days on target
+                      </p>
+
+                      <div className="mt-4 grid grid-cols-7 gap-1.5 sm:mt-auto sm:gap-2">
+                        {nutrition.history.map((day) => (
+                          <div key={day.id} className="flex flex-col items-center gap-1.5">
+                            <span className="text-[9px] font-semibold uppercase tracking-[0.08em] text-muted-foreground sm:text-[10px]">
+                              {day.label.slice(0, 2)}
+                            </span>
+                            <span
+                              className={cn(
+                                "block h-2.5 w-2.5 rounded-full border sm:h-3 sm:w-3",
+                                day.withinTarget
+                                  ? "border-primary bg-primary shadow-[0_0_0_3px_rgba(140,176,230,0.12)]"
+                                  : "border-white/12 bg-white/10",
+                              )}
+                              aria-label={`${day.label} ${day.withinTarget ? "within" : "outside"} calorie goal`}
+                              title={`${day.label}: ${day.withinTarget ? "within" : "outside"} calorie goal`}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-3 gap-2 sm:gap-3">
@@ -1249,9 +1367,19 @@ export function NutritionPage() {
               </Card>
             </>
           )}
-        </TabsContent>
+        </section>
+      ) : null}
 
-        <TabsContent value="targets" className="space-y-6">
+      {!composerMealId && isTodayPage ? <NutritionSectionNav /> : null}
+
+      {isTargetsPage ? (
+        <section className="space-y-6">
+          <Button asChild variant="ghost" className="w-fit px-0 text-primary">
+            <Link to="/app/nutrition">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to daily view
+            </Link>
+          </Button>
           <Card data-reveal className="rounded-[32px] p-8">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
               Nutrition targets
@@ -1349,9 +1477,18 @@ export function NutritionPage() {
               <Button type="submit">Save targets</Button>
             </form>
           </Card>
-        </TabsContent>
+          <NutritionSectionNav currentSection="targets" />
+        </section>
+      ) : null}
 
-        <TabsContent value="history" className="space-y-6">
+      {isHistoryPage ? (
+        <section className="space-y-6">
+          <Button asChild variant="ghost" className="w-fit px-0 text-primary">
+            <Link to="/app/nutrition">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to daily view
+            </Link>
+          </Button>
           <section className="grid gap-6 xl:grid-cols-[1fr_360px]">
             <Card data-reveal className="rounded-[32px] p-8">
               <div className="flex items-center justify-between">
@@ -1399,8 +1536,9 @@ export function NutritionPage() {
               </div>
             </Card>
           </section>
-        </TabsContent>
-      </Tabs>
+          <NutritionSectionNav currentSection="history" />
+        </section>
+      ) : null}
     </PageShell>
   );
 }

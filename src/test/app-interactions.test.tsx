@@ -51,6 +51,19 @@ describe("signed-in interactions", () => {
     expect((await screen.findAllByText(/2.25 L/i)).length).toBeGreaterThan(0);
   });
 
+  it("navigates to dedicated nutrition section pages", async () => {
+    const user = userEvent.setup();
+    seedSession();
+    renderApp("/app/nutrition");
+
+    expect(screen.queryByRole("button", { name: /^today$/i })).not.toBeInTheDocument();
+    await user.click(screen.getByRole("link", { name: /^targets$/i }));
+
+    expect(await screen.findByText(/adjust the framework/i)).toBeInTheDocument();
+    expect(screen.queryByText(/today's logging/i)).not.toBeInTheDocument();
+    expect(window.location.pathname).toBe("/app/nutrition/targets");
+  });
+
   it("toggles workout set completion", async () => {
     const user = userEvent.setup();
     seedSession();
@@ -59,11 +72,14 @@ describe("signed-in interactions", () => {
     const toggleButtons = await screen.findAllByRole("button", {
       name: /toggle set/i,
     });
-    expect(toggleButtons[1]).toHaveAttribute("aria-pressed", "false");
+    const incompleteToggle = toggleButtons.find(
+      (button) => button.getAttribute("aria-pressed") === "false",
+    );
+    expect(incompleteToggle).toBeDefined();
 
-    await user.click(toggleButtons[1]);
+    await user.click(incompleteToggle!);
 
-    expect(toggleButtons[1]).toHaveAttribute("aria-pressed", "true");
+    expect(incompleteToggle).toHaveAttribute("aria-pressed", "true");
   });
 
   it("adds an exercise to the routine builder library", async () => {

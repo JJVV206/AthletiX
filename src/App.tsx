@@ -70,7 +70,9 @@ export default function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/app" element={<AppShell />}>
             <Route index element={<DashboardPage />} />
-            <Route path="nutrition" element={<NutritionPage />} />
+            <Route path="nutrition" element={<NutritionPage section="today" />} />
+            <Route path="nutrition/targets" element={<NutritionPage section="targets" />} />
+            <Route path="nutrition/history" element={<NutritionPage section="history" />} />
             <Route path="training" element={<TrainingPage />} />
             <Route path="sports" element={<SportsPage />} />
             <Route path="progress" element={<ProgressPage />} />

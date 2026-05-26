@@ -166,7 +166,7 @@ export function TrainingPage() {
                   ) : (
                     <div className="mt-5 space-y-4 border-t border-white/10 pt-5">
                       <div className="overflow-hidden rounded-[24px] border border-white/10">
-                        <div className="grid grid-cols-[72px_1fr_96px_96px_60px] bg-white/5 px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                        <div className="hidden grid-cols-[56px_minmax(0,1fr)_88px_88px_56px] bg-white/5 px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground sm:grid">
                           <span>Set</span>
                           <span>Previous</span>
                           <span>Kg</span>
@@ -175,31 +175,74 @@ export function TrainingPage() {
                         </div>
                         <div className="divide-y divide-white/10">
                           {exercise.sets.map((set, index) => (
-                            <div
-                              key={set.id}
-                              className="grid grid-cols-[72px_1fr_96px_96px_60px] items-center px-4 py-4"
-                            >
-                              <span className="text-lg font-bold">{index + 1}</span>
-                              <span className="text-muted-foreground">{set.previous}</span>
-                              <span className="rounded-2xl bg-white/5 px-4 py-3 text-center font-semibold">
-                                {set.weightKg}
-                              </span>
-                              <span className="rounded-2xl bg-white/5 px-4 py-3 text-center font-semibold">
-                                {set.reps}
-                              </span>
-                              <button
-                                type="button"
-                                aria-label={`Toggle set ${index + 1}`}
-                                aria-pressed={set.completed}
-                                className="flex justify-center text-primary"
-                                onClick={() => toggleWorkoutSet(exercise.id, set.id)}
-                              >
-                                <CheckCircle2
-                                  className={`h-6 w-6 ${
-                                    set.completed ? "fill-primary text-background" : "text-border"
-                                  }`}
-                                />
-                              </button>
+                            <div key={set.id} className="px-4 py-4">
+                              <div className="grid gap-3 sm:hidden">
+                                <div className="flex items-center justify-between gap-4">
+                                  <div>
+                                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                                      Set
+                                    </p>
+                                    <p className="mt-1 text-lg font-bold">{index + 1}</p>
+                                  </div>
+                                  <button
+                                    type="button"
+                                    aria-label={`Toggle set ${index + 1}`}
+                                    aria-pressed={set.completed}
+                                    className="flex h-11 w-11 items-center justify-center rounded-full bg-white/5 text-primary"
+                                    onClick={() => toggleWorkoutSet(exercise.id, set.id)}
+                                  >
+                                    <CheckCircle2
+                                      className={`h-6 w-6 ${
+                                        set.completed ? "fill-primary text-background" : "text-border"
+                                      }`}
+                                    />
+                                  </button>
+                                </div>
+                                <div className="rounded-[18px] bg-white/5 px-4 py-3">
+                                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                                    Previous
+                                  </p>
+                                  <p className="mt-1 font-semibold text-foreground">{set.previous}</p>
+                                </div>
+                                <div className="grid grid-cols-2 gap-3">
+                                  <div className="rounded-[18px] bg-white/5 px-4 py-3 text-center">
+                                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                                      Kg
+                                    </p>
+                                    <p className="mt-1 font-semibold">{set.weightKg}</p>
+                                  </div>
+                                  <div className="rounded-[18px] bg-white/5 px-4 py-3 text-center">
+                                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                                      Reps
+                                    </p>
+                                    <p className="mt-1 font-semibold">{set.reps}</p>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="hidden grid-cols-[56px_minmax(0,1fr)_88px_88px_56px] items-center gap-3 sm:grid">
+                                <span className="text-lg font-bold">{index + 1}</span>
+                                <span className="min-w-0 text-muted-foreground">{set.previous}</span>
+                                <span className="rounded-2xl bg-white/5 px-4 py-3 text-center font-semibold">
+                                  {set.weightKg}
+                                </span>
+                                <span className="rounded-2xl bg-white/5 px-4 py-3 text-center font-semibold">
+                                  {set.reps}
+                                </span>
+                                <button
+                                  type="button"
+                                  aria-label={`Toggle set ${index + 1}`}
+                                  aria-pressed={set.completed}
+                                  className="flex justify-center text-primary"
+                                  onClick={() => toggleWorkoutSet(exercise.id, set.id)}
+                                >
+                                  <CheckCircle2
+                                    className={`h-6 w-6 ${
+                                      set.completed ? "fill-primary text-background" : "text-border"
+                                    }`}
+                                  />
+                                </button>
+                              </div>
                             </div>
                           ))}
                         </div>
