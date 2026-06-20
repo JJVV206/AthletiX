@@ -1,0 +1,343 @@
+{
+  "metadata": {
+    "generatedAt": "2026-06-04T07:10:33.904Z",
+    "generator": "project-onboarding-docs/scripts/build_context.js",
+    "lang": "es",
+    "repoRoot": "/Users/josejaredvillatorovargas/Code/I01/AthletiX",
+    "scannedFileCount": 64,
+    "maxDepth": 5,
+    "maxFiles": 1200
+  },
+  "project": {
+    "name": "AthletiX",
+    "description": "AthletiX is a responsive wellness frontend built with Vite, React, TypeScript, Tailwind CSS, shadcn-style UI primitives, and anime.js.",
+    "descriptionSource": "README.md",
+    "tagline": "",
+    "repoType": "frontend",
+    "repoTypeLabel": "Aplicacion frontend",
+    "documentationStatus": "Borrador basado en evidencia"
+  },
+  "businessView": {
+    "audienceSummary": "",
+    "elevatorPitch": "AthletiX is a responsive wellness frontend built with Vite, React, TypeScript, Tailwind CSS, shadcn-style UI primitives, and anime.js.",
+    "primaryUsers": [],
+    "businessOutcomes": [],
+    "coreFlows": [],
+    "modules": [
+      {
+        "name": "Experiencia de usuario",
+        "summary": "La interfaz parece concentrarse en componentes, paginas o rutas del frontend."
+      },
+      {
+        "name": "Calidad y entrega",
+        "summary": "El proyecto incluye pistas de testing, build o automatizacion de entrega."
+      }
+    ],
+    "glossary": [
+      {
+        "term": "Pendiente",
+        "meaning": "Agrega terminos del dominio si el proyecto usa lenguaje propio del negocio."
+      }
+    ],
+    "openQuestions": [
+      "Confirma con el owner del producto el objetivo de negocio, los usuarios principales y cualquier flujo que no sea visible solo desde el repositorio."
+    ]
+  },
+  "technicalView": {
+    "architecture": {
+      "style": "Aplicacion frontend",
+      "summary": "El repositorio apunta a una aplicacion frontend centrada en React, Vite, TypeScript, Tailwind CSS.",
+      "dataFlow": "",
+      "deployment": ""
+    },
+    "stack": {
+      "runtime": [
+        "Node.js"
+      ],
+      "frameworks": [
+        "React"
+      ],
+      "ui": [
+        "anime.js",
+        "Lucide Icons",
+        "Radix UI",
+        "Tailwind CSS"
+      ],
+      "tooling": [
+        "PostCSS",
+        "TypeScript",
+        "Vite"
+      ],
+      "testing": [
+        "Testing Library",
+        "Vitest"
+      ],
+      "data": [],
+      "infrastructure": []
+    },
+    "structure": [
+      {
+        "path": "src",
+        "purpose": "Codigo fuente principal de la aplicacion.",
+        "source": "src"
+      }
+    ],
+    "entryPoints": [
+      {
+        "path": "src/main.tsx",
+        "purpose": "Arranque principal de la aplicacion web.",
+        "source": "src/main.tsx"
+      },
+      {
+        "path": "index.html",
+        "purpose": "Shell HTML principal del frontend.",
+        "source": "index.html"
+      }
+    ],
+    "commands": [
+      {
+        "name": "dev",
+        "command": "vite",
+        "purpose": "Inicia el entorno local de desarrollo.",
+        "source": "package.json"
+      },
+      {
+        "name": "typecheck",
+        "command": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.node.json",
+        "purpose": "Verifica tipos.",
+        "source": "package.json"
+      },
+      {
+        "name": "build",
+        "command": "npm run typecheck && vite build",
+        "purpose": "Genera el artefacto de build.",
+        "source": "package.json"
+      },
+      {
+        "name": "preview",
+        "command": "vite preview",
+        "purpose": "Sirve el build localmente.",
+        "source": "package.json"
+      },
+      {
+        "name": "test",
+        "command": "vitest run",
+        "purpose": "Ejecuta la suite de pruebas.",
+        "source": "package.json"
+      },
+      {
+        "name": "test:watch",
+        "command": "vitest",
+        "purpose": "Script observado en el manifest.",
+        "source": "package.json"
+      }
+    ],
+    "envFiles": [],
+    "ci": [],
+    "deploymentFiles": [],
+    "dependencies": [
+      {
+        "name": "@radix-ui/react-slot",
+        "version": "^1.1.0",
+        "scope": "dependencies",
+        "source": "package.json"
+      },
+      {
+        "name": "@radix-ui/react-tabs",
+        "version": "^1.1.1",
+        "scope": "dependencies",
+        "source": "package.json"
+      },
+      {
+        "name": "@testing-library/jest-dom",
+        "version": "^6.6.3",
+        "scope": "devDependencies",
+        "source": "package.json"
+      },
+      {
+        "name": "@testing-library/react",
+        "version": "^16.0.1",
+        "scope": "devDependencies",
+        "source": "package.json"
+      },
+      {
+        "name": "@testing-library/user-event",
+        "version": "^14.5.2",
+        "scope": "devDependencies",
+        "source": "package.json"
+      },
+      {
+        "name": "@types/node",
+        "version": "^22.7.4",
+        "scope": "devDependencies",
+        "source": "package.json"
+      },
+      {
+        "name": "@types/react",
+        "version": "^18.3.11",
+        "scope": "devDependencies",
+        "source": "package.json"
+      },
+      {
+        "name": "@types/react-dom",
+        "version": "^18.3.0",
+        "scope": "devDependencies",
+        "source": "package.json"
+      },
+      {
+        "name": "@vitejs/plugin-react",
+        "version": "^4.3.3",
+        "scope": "devDependencies",
+        "source": "package.json"
+      },
+      {
+        "name": "animejs",
+        "version": "^3.2.2",
+        "scope": "dependencies",
+        "source": "package.json"
+      },
+      {
+        "name": "autoprefixer",
+        "version": "^10.4.20",
+        "scope": "devDependencies",
+        "source": "package.json"
+      },
+      {
+        "name": "class-variance-authority",
+        "version": "^0.7.0",
+        "scope": "dependencies",
+        "source": "package.json"
+      },
+      {
+        "name": "clsx",
+        "version": "^2.1.1",
+        "scope": "dependencies",
+        "source": "package.json"
+      },
+      {
+        "name": "jsdom",
+        "version": "^25.0.1",
+        "scope": "devDependencies",
+        "source": "package.json"
+      },
+      {
+        "name": "lucide-react",
+        "version": "^0.451.0",
+        "scope": "dependencies",
+        "source": "package.json"
+      },
+      {
+        "name": "postcss",
+        "version": "^8.4.47",
+        "scope": "devDependencies",
+        "source": "package.json"
+      },
+      {
+        "name": "react",
+        "version": "^18.3.1",
+        "scope": "dependencies",
+        "source": "package.json"
+      },
+      {
+        "name": "react-dom",
+        "version": "^18.3.1",
+        "scope": "dependencies",
+        "source": "package.json"
+      },
+      {
+        "name": "react-router-dom",
+        "version": "^6.27.0",
+        "scope": "dependencies",
+        "source": "package.json"
+      },
+      {
+        "name": "tailwind-merge",
+        "version": "^2.5.3",
+        "scope": "dependencies",
+        "source": "package.json"
+      }
+    ],
+    "testing": {
+      "frameworks": [
+        "Testing Library",
+        "Vitest"
+      ],
+      "locations": [],
+      "testFileCount": 3,
+      "notes": "El repositorio incluye evidencia de pruebas automatizadas. Conviene revisar su cobertura real antes de usarlo como señal de calidad."
+    },
+    "integrations": [],
+    "risks": [],
+    "openQuestions": [
+      "Confirma con el owner del producto el objetivo de negocio, los usuarios principales y cualquier flujo que no sea visible solo desde el repositorio."
+    ]
+  },
+  "evidence": {
+    "draftNote": "Borrador generado a partir de evidencia del repositorio. Completa los campos narrativos antes de compartirlo fuera del equipo.",
+    "keyFiles": [
+      "index.html",
+      "package.json",
+      "README.md",
+      "src/main.tsx",
+      "tsconfig.json",
+      "vite.config.js",
+      "vite.config.ts"
+    ],
+    "observedFacts": [
+      {
+        "label": "Manifest",
+        "value": "package.json",
+        "source": "package.json",
+        "type": "observed"
+      },
+      {
+        "label": "Descripcion",
+        "value": "AthletiX is a responsive wellness frontend built with Vite, React, TypeScript, Tailwind CSS, shadcn-style UI primitives, and anime.js.",
+        "source": "README.md",
+        "type": "observed"
+      },
+      {
+        "label": "Frameworks",
+        "value": "React",
+        "source": "package.json",
+        "type": "observed"
+      },
+      {
+        "label": "UI",
+        "value": "anime.js, Lucide Icons, Radix UI, Tailwind CSS",
+        "source": "package.json",
+        "type": "observed"
+      },
+      {
+        "label": "Entrypoints",
+        "value": "src/main.tsx, index.html",
+        "source": "src/main.tsx",
+        "type": "observed"
+      },
+      {
+        "label": "Pruebas",
+        "value": "3 archivos de prueba detectados",
+        "source": "repository scan",
+        "type": "observed"
+      }
+    ],
+    "inferredFacts": [
+      {
+        "label": "Tipo de repositorio",
+        "value": "Aplicacion frontend",
+        "rationale": "Inferido por frameworks, manifiestos y estructura del arbol.",
+        "confidence": "medium",
+        "source": "package.json",
+        "type": "inferred"
+      },
+      {
+        "label": "Resumen de arquitectura",
+        "value": "El repositorio apunta a una aplicacion frontend centrada en React, Vite, TypeScript, Tailwind CSS.",
+        "rationale": "Inferido a partir del stack detectado.",
+        "confidence": "medium",
+        "source": "package.json",
+        "type": "inferred"
+      }
+    ]
+  }
+}

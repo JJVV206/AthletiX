@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 222 42% 7%;
+  --foreground: 210 20% 96%;
+  --card: 221 34% 11%;
+  --card-foreground: 210 20% 96%;
+  --border: 219 24% 24%;
+  --input: 221 28% 15%;
+  --primary: 214 40% 70%;
+  --primary-foreground: 222 18% 10%;
+  --secondary: 222 28% 14%;
+  --secondary-foreground: 210 20% 96%;
+  --muted: 221 22% 17%;
+  --muted-foreground: 214 18% 74%;
+  --accent: 212 52% 58%;
+  --accent-foreground: 222 18% 10%;
+  --ring: 212 52% 58%;
+  --success: 214 40% 70%;
+  --lime: 212 26% 80%;
+  --sky: 212 48% 62%;
+  --sand: 220 16% 24%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply min-h-screen bg-background text-foreground antialiased;
+    background-image:
+      radial-gradient(circle at 12% 10%, rgba(92, 125, 177, 0.18), transparent 26%),
+      radial-gradient(circle at 82% 16%, rgba(56, 87, 140, 0.14), transparent 20%),
+      radial-gradient(circle at 50% 100%, rgba(186, 204, 232, 0.05), transparent 28%),
+      linear-gradient(180deg, #07101c 0%, #0b1320 45%, #07101a 100%);
+  }
+
+  a {
+    @apply text-inherit no-underline;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply rounded-[30px] border border-white/10 bg-white/5 shadow-soft backdrop-blur-xl;
+  }
+
+  .halo {
+    position: absolute;
+    inset: auto;
+    width: 16rem;
+    height: 16rem;
+    border-radius: 9999px;
+    background:
+      radial-gradient(circle, rgba(104, 133, 182, 0.22) 0%, rgba(104, 133, 182, 0) 68%);
+    filter: blur(28px);
+    pointer-events: none;
+  }
+
+  .section-shell {
+    @apply rounded-[32px] border border-white/10 bg-white/5 shadow-soft backdrop-blur-sm;
+  }
+
+  .performance-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+}
