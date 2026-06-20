@@ -8,7 +8,6 @@ import {
   LineChart,
   ShieldCheck,
   Sparkles,
-  Trophy,
   Users,
   UserCircle2,
 } from "lucide-react";
@@ -20,7 +19,6 @@ const navItems = [
   { label: "Dashboard", href: "/app", icon: LayoutDashboard },
   { label: "Nutrition", href: "/app/nutrition", icon: Apple },
   { label: "Training", href: "/app/training", icon: Dumbbell },
-  { label: "Sports", href: "/app/sports", icon: Trophy },
   { label: "Progress", href: "/app/progress", icon: LineChart },
   { label: "Insights", href: "/app/insights", icon: Sparkles },
   { label: "Professionals", href: "/app/professionals", icon: Users },
@@ -34,7 +32,7 @@ export function AppSidebar() {
   } = useSession();
 
   return (
-    <aside className="hidden w-72 flex-col rounded-[32px] border border-white/10 bg-white/5 p-6 shadow-soft backdrop-blur xl:flex">
+    <aside className="hidden w-72 flex-col rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(28,40,63,0.96)_0%,rgba(13,21,35,0.98)_100%)] p-6 shadow-soft backdrop-blur xl:flex">
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.26em] text-primary/80">
           Performance OS
@@ -68,7 +66,7 @@ export function AppSidebar() {
           );
         })}
       </nav>
-      <div className="mt-auto rounded-[28px] border border-white/10 bg-slate-950/70 p-5">
+      <div className="mt-auto rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(16,24,38,0.92)_0%,rgba(9,15,26,0.96)_100%)] p-5">
         <div className="flex items-center justify-between gap-4">
           <div>
             <p className="text-xs uppercase tracking-[0.22em] text-primary/80">

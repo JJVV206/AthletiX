@@ -203,7 +203,7 @@ export function DashboardPage() {
               <Link to="/app/insights">Open insights</Link>
             </Button>
             <Button asChild variant="ghost" className="px-0 text-primary">
-              <Link to="/app/sports">Open sports modules</Link>
+              <Link to="/app/training">Open training hub</Link>
             </Button>
           </div>
         </Card>

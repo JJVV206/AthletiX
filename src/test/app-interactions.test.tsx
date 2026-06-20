@@ -82,6 +82,15 @@ describe("signed-in interactions", () => {
     expect(incompleteToggle).toHaveAttribute("aria-pressed", "true");
   });
 
+  it("shows the user's sports context inside the unified training page", async () => {
+    seedSession();
+    renderApp("/app/training");
+
+    expect(await screen.findByText(/train inside your sports mix/i)).toBeInTheDocument();
+    expect(screen.getByText(/^strength$/i)).toBeInTheDocument();
+    expect(screen.getByText(/^padel$/i)).toBeInTheDocument();
+  });
+
   it("adds an exercise to the routine builder library", async () => {
     const user = userEvent.setup();
     seedSession();

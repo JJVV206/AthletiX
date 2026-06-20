@@ -6,6 +6,7 @@ import {
   Clock3,
   Minus,
   Plus,
+  Trophy,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,8 +14,38 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { PageShell } from "@/components/page-shell";
 import { useAppState } from "@/context/app-state-context";
+import { useSession } from "@/context/session-context";
+import { sportLabels } from "@/data/mock-data";
 import { useLoopPulse } from "@/lib/motion";
 import { formatDuration, formatLongDuration, formatNumber } from "@/lib/utils";
+
+const sportDashboards = {
+  strength: [
+    "PR watchlist and force-output checkpoints",
+    "Weekly training volume and muscle-group balance",
+    "Block planning for strength and hypertrophy phases",
+  ],
+  tennis: [
+    "Court-session tracking and technical work blocks",
+    "Match-week readiness and recovery cues",
+    "Conditioning and lower-body load management",
+  ],
+  padel: [
+    "Match sessions, drill sessions, and tournament notes",
+    "Rotational power and repeated-effort conditioning",
+    "Workload visibility for high-frequency play",
+  ],
+  soccer: [
+    "Sprint work, conditioning, and match-load monitoring",
+    "Session notes and readiness markers",
+    "Training-week structure around game day",
+  ],
+  basketball: [
+    "Skill sessions, conditioning, and jump prep tracking",
+    "Practice-to-game rhythm and session planning",
+    "Performance dashboards for explosive output",
+  ],
+};
 
 export function TrainingPage() {
   const {
@@ -29,6 +60,9 @@ export function TrainingPage() {
     toggleRoutinePublish,
     toggleWorkoutSet,
   } = useAppState();
+  const {
+    session: { user },
+  } = useSession();
   const [query, setQuery] = useState("");
   const [expandedExerciseId, setExpandedExerciseId] = useState<string | null>(
     workout.exercises.find((exercise) => !exercise.locked)?.id ?? workout.exercises[0]?.id,
@@ -275,6 +309,47 @@ export function TrainingPage() {
         </div>
 
         <div className="space-y-4">
+          <Card data-reveal className="rounded-[28px] p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+              Sport-aware training
+            </p>
+            <h2 className="mt-3 text-2xl font-bold">Train inside your sports mix</h2>
+            <p className="mt-2 text-sm leading-7 text-muted-foreground">
+              This page carries your training workflow regardless of the sport or
+              combination of sports selected in your profile.
+            </p>
+            <div className="mt-5 space-y-3">
+              {user.sports.map((sport) => (
+                <div
+                  key={sport}
+                  className="rounded-[22px] border border-white/10 bg-white/5 p-4"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary/80">
+                        Active sport
+                      </p>
+                      <p className="mt-2 text-lg font-semibold">{sportLabels[sport]}</p>
+                    </div>
+                    <div className="rounded-2xl bg-primary/12 p-3 text-primary">
+                      <Trophy className="h-4 w-4" />
+                    </div>
+                  </div>
+                  <div className="mt-4 space-y-2">
+                    {sportDashboards[sport].map((module) => (
+                      <div
+                        key={module}
+                        className="rounded-[18px] bg-slate-950/55 px-3 py-3 text-sm text-muted-foreground"
+                      >
+                        {module}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Card>
+
           <Card data-reveal className="rounded-[28px] p-5">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
               Program overview

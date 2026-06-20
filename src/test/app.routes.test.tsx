@@ -31,4 +31,12 @@ describe("app routing", () => {
     ).toBeInTheDocument();
     expect(screen.getByText(/recent bests and movement/i)).toBeInTheDocument();
   });
+
+  it("redirects legacy sports route into the unified training page", async () => {
+    seedSession();
+    renderApp("/app/sports");
+
+    expect(await screen.findByText(/train inside your sports mix/i)).toBeInTheDocument();
+    expect(window.location.pathname).toBe("/app/training");
+  });
 });

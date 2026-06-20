@@ -11,7 +11,6 @@ import { OnboardingGoalsPage } from "@/pages/onboarding-goals-page";
 import { ProfessionalsPage } from "@/pages/professionals-page";
 import { ProgressPage } from "@/pages/progress-page";
 import { ProfilePage } from "@/pages/profile-page";
-import { SportsPage } from "@/pages/sports-page";
 import { TrainingPage } from "@/pages/training-page";
 
 function ProtectedRoute() {
@@ -74,7 +73,7 @@ export default function App() {
             <Route path="nutrition/targets" element={<NutritionPage section="targets" />} />
             <Route path="nutrition/history" element={<NutritionPage section="history" />} />
             <Route path="training" element={<TrainingPage />} />
-            <Route path="sports" element={<SportsPage />} />
+            <Route path="sports" element={<Navigate to="/app/training" replace />} />
             <Route path="progress" element={<ProgressPage />} />
             <Route path="insights" element={<InsightsPage />} />
             <Route path="professionals" element={<ProfessionalsPage />} />
