@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AthletiX - Vista tecnica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Space Grotesk"', "ui-sans-serif", "system-ui"],
+              mono: ['"IBM Plex Mono"', "ui-monospace", "SFMono-Regular"],
+            },
+            colors: {
+              ink: "#020617",
+              azure: "#1d4ed8",
+              night: "#0f172a",
+              slatefog: "#e2e8f0",
+              frost: "#f8fafc",
+            },
+            boxShadow: {
+              circuit: "0 24px 80px rgba(2, 6, 23, 0.18)",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background:
+          radial-gradient(circle at top left, rgba(29, 78, 216, 0.18), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.12), transparent 24%),
+          linear-gradient(180deg, #f8fafc 0%, #eff6ff 100%);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen text-slate-900">
+    <div class="mx-auto max-w-7xl px-5 py-6 sm:px-8 lg:px-10">
+      <header class="mb-8 rounded-[2rem] border border-slate-200/80 bg-night p-8 text-white shadow-circuit">
+        <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div class="max-w-3xl">
+            <p class="mb-3 text-xs font-medium uppercase tracking-[0.28em] text-sky-200">Vista tecnica</p>
+            <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">AthletiX</h1>
+            <p class="mt-4 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg">Guia estructural para developers: arquitectura, stack, entrypoints, testing y evidencia operativa.</p>
+          </div>
+          <div class="flex flex-col gap-3 lg:items-end">
+            <div class="flex flex-wrap gap-2 lg:justify-end"><span class="rounded-full border border-slate-600 bg-slate-800/80 px-3 py-1 text-xs font-medium text-slate-100">Tipo: Aplicacion frontend</span><span class="rounded-full border border-slate-600 bg-slate-800/80 px-3 py-1 text-xs font-medium text-slate-100">Estado: Borrador basado en evidencia</span><span class="rounded-full border border-slate-600 bg-slate-800/80 px-3 py-1 text-xs font-medium text-slate-100">Archivos analizados: 64</span><span class="rounded-full border border-slate-600 bg-slate-800/80 px-3 py-1 text-xs font-medium text-slate-100">Generado: 4/6/2026, 1:10:33 a.m.</span></div>
+            <div class="flex flex-wrap gap-3 text-sm font-medium">
+              <a class="rounded-full border border-slate-600 bg-slate-800 px-4 py-2 text-slate-100 transition hover:border-slate-500 hover:bg-slate-700" href="index.html">Abrir vista general</a>
+              <a class="rounded-full border border-sky-700 bg-sky-900/60 px-4 py-2 text-sky-100 transition hover:border-sky-500 hover:bg-sky-800/70" href="project-context.json">Ver contexto JSON</a>
+            </div>
+          </div>
+        </div>
+        <div class="mt-6 rounded-3xl border border-slate-700 bg-slate-900/60 px-5 py-4 text-sm leading-6 text-slate-200">
+          Borrador generado a partir de evidencia del repositorio. Completa los campos narrativos antes de compartirlo fuera del equipo.
+        </div>
+      </header>
+      <main class="space-y-6">
+    <section class="rounded-[1.75rem] border border-slate-700 bg-slate-950/85 p-6 text-white shadow-lg">
+      <h2 class="text-2xl font-semibold tracking-tight text-white">Resumen de arquitectura</h2>
+      <div class="mt-5 space-y-4">
+        <p class="text-base leading-7 text-slate-200">El repositorio apunta a una aplicacion frontend centrada en React, Vite, TypeScript, Tailwind CSS.</p>
+        
+        
+      </div>
+    </section>
+  
+    <section class="rounded-[1.75rem] border border-slate-700 bg-slate-950/85 p-6 text-white shadow-lg">
+      <h2 class="text-2xl font-semibold tracking-tight text-white">Stack detectado</h2>
+      <div class="mt-5 space-y-4"><div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              <article class="rounded-3xl border border-slate-700 bg-slate-900/50 p-5">
+                <p class="text-xs font-medium uppercase tracking-[0.22em] text-slate-400">Runtime</p>
+                <p class="mt-3 text-sm leading-6 text-slate-200">Node.js</p>
+              </article>
+            
+              <article class="rounded-3xl border border-slate-700 bg-slate-900/50 p-5">
+                <p class="text-xs font-medium uppercase tracking-[0.22em] text-slate-400">Frameworks</p>
+                <p class="mt-3 text-sm leading-6 text-slate-200">React</p>
+              </article>
+            
+              <article class="rounded-3xl border border-slate-700 bg-slate-900/50 p-5">
+                <p class="text-xs font-medium uppercase tracking-[0.22em] text-slate-400">UI</p>
+                <p class="mt-3 text-sm leading-6 text-slate-200">anime.js, Lucide Icons, Radix UI, Tailwind CSS</p>
+              </article>
+            
+              <article class="rounded-3xl border border-slate-700 bg-slate-900/50 p-5">
+                <p class="text-xs font-medium uppercase tracking-[0.22em] text-slate-400">Tooling</p>
+                <p class="mt-3 text-sm leading-6 text-slate-200">PostCSS, TypeScript, Vite</p>
+              </article>
+            
+              <article class="rounded-3xl border border-slate-700 bg-slate-900/50 p-5">
+                <p class="text-xs font-medium uppercase tracking-[0.22em] text-slate-400">Pruebas</p>
+                <p class="mt-3 text-sm leading-6 text-slate-200">Testing Library, Vitest</p>
+              </article>
+            </div></div>
+    </section>
+  
+    <section class="rounded-[1.75rem] border border-slate-700 bg-slate-950/85 p-6 text-white shadow-lg">
+      <h2 class="text-2xl font-semibold tracking-tight text-white">Estructura del proyecto</h2>
+      <div class="mt-5 space-y-4">
+    <div class="overflow-hidden rounded-3xl border border-slate-700 bg-slate-950/85">
+      <table class="min-w-full text-left text-sm">
+        <thead class="bg-slate-900 text-slate-300">
+          <tr>
+            <th class="px-4 py-3 font-medium">Ruta</th><th class="px-4 py-3 font-medium">Uso aparente</th><th class="px-4 py-3 font-medium">Fuente</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+                <tr class="border-t border-slate-800 text-slate-200">
+                  <td class="px-4 py-3 align-top"><code class="text-xs">src</code></td><td class="px-4 py-3 align-top"><span>Codigo fuente principal de la aplicacion.</span></td><td class="px-4 py-3 align-top"><code class="text-xs">src</code></td>
+                </tr>
+              
+        </tbody>
+      </table>
+    </div>
+  </div>
+    </section>
+  
+    <section class="rounded-[1.75rem] border border-slate-700 bg-slate-950/85 p-6 text-white shadow-lg">
+      <h2 class="text-2xl font-semibold tracking-tight text-white">Entrypoints</h2>
+      <div class="mt-5 space-y-4"><div class="grid gap-4 md:grid-cols-2">
+      <article class="rounded-3xl border border-slate-700 bg-slate-900/50 p-5">
+        <h3 class="text-base font-semibold text-white"><code>src/main.tsx</code></h3>
+        <p class="mt-3 text-sm leading-6 text-slate-200">Arranque principal de la aplicacion web.</p>
+        <p class="mt-4 text-xs font-mono text-slate-400">src/main.tsx</p>
+      </article>
+    
+      <article class="rounded-3xl border border-slate-700 bg-slate-900/50 p-5">
+        <h3 class="text-base font-semibold text-white"><code>index.html</code></h3>
+        <p class="mt-3 text-sm leading-6 text-slate-200">Shell HTML principal del frontend.</p>
+        <p class="mt-4 text-xs font-mono text-slate-400">index.html</p>
+      </article>
+    </div></div>
+    </section>
+  
+    <section class="rounded-[1.75rem] border border-slate-700 bg-slate-950/85 p-6 text-white shadow-lg">
+      <h2 class="text-2xl font-semibold tracking-tight text-white">Comandos</h2>
+      <div class="mt-5 space-y-4">
+    <div class="overflow-hidden rounded-3xl border border-slate-700 bg-slate-950/85">
+      <table class="min-w-full text-left text-sm">
+        <thead class="bg-slate-900 text-slate-300">
+          <tr>
+            <th class="px-4 py-3 font-medium">Script</th><th class="px-4 py-3 font-medium">Command</th><th class="px-4 py-3 font-medium">Proposito</th><th class="px-4 py-3 font-medium">Fuente</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+                <tr class="border-t border-slate-800 text-slate-200">
+                  <td class="px-4 py-3 align-top"><code class="text-xs">dev</code></td><td class="px-4 py-3 align-top"><code class="text-xs">vite</code></td><td class="px-4 py-3 align-top"><span>Inicia el entorno local de desarrollo.</span></td><td class="px-4 py-3 align-top"><code class="text-xs">package.json</code></td>
+                </tr>
+              
+                <tr class="border-t border-slate-800 text-slate-200">
+                  <td class="px-4 py-3 align-top"><code class="text-xs">typecheck</code></td><td class="px-4 py-3 align-top"><code class="text-xs">tsc --noEmit -p tsconfig.json &amp;&amp; tsc --noEmit -p tsconfig.node.json</code></td><td class="px-4 py-3 align-top"><span>Verifica tipos.</span></td><td class="px-4 py-3 align-top"><code class="text-xs">package.json</code></td>
+                </tr>
+              
+                <tr class="border-t border-slate-800 text-slate-200">
+                  <td class="px-4 py-3 align-top"><code class="text-xs">build</code></td><td class="px-4 py-3 align-top"><code class="text-xs">npm run typecheck &amp;&amp; vite build</code></td><td class="px-4 py-3 align-top"><span>Genera el artefacto de build.</span></td><td class="px-4 py-3 align-top"><code class="text-xs">package.json</code></td>
+                </tr>
+              
+                <tr class="border-t border-slate-800 text-slate-200">
+                  <td class="px-4 py-3 align-top"><code class="text-xs">preview</code></td><td class="px-4 py-3 align-top"><code class="text-xs">vite preview</code></td><td class="px-4 py-3 align-top"><span>Sirve el build localmente.</span></td><td class="px-4 py-3 align-top"><code class="text-xs">package.json</code></td>
+                </tr>
+              
+                <tr class="border-t border-slate-800 text-slate-200">
+                  <td class="px-4 py-3 align-top"><code class="text-xs">test</code></td><td class="px-4 py-3 align-top"><code class="text-xs">vitest run</code></td><td class="px-4 py-3 align-top"><span>Ejecuta la suite de pruebas.</span></td><td class="px-4 py-3 align-top"><code class="text-xs">package.json</code></td>
+                </tr>
+              
+                <tr class="border-t border-slate-800 text-slate-200">
+                  <td class="px-4 py-3 align-top"><code class="text-xs">test:watch</code></td><td class="px-4 py-3 align-top"><code class="text-xs">vitest</code></td><td class="px-4 py-3 align-top"><span>Script observado en el manifest.</span></td><td class="px-4 py-3 align-top"><code class="text-xs">package.json</code></td>
+                </tr>
+              
+        </tbody>
+      </table>
+    </div>
+  </div>
+    </section>
+  
+    <section class="rounded-[1.75rem] border border-slate-700 bg-slate-950/85 p-6 text-white shadow-lg">
+      <h2 class="text-2xl font-semibold tracking-tight text-white">Configuracion y entorno</h2>
+      <div class="mt-5 space-y-4"><div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <article class="rounded-3xl border border-slate-700 bg-slate-900/50 p-5">
+            <p class="text-xs font-medium uppercase tracking-[0.22em] text-slate-400">Entorno</p>
+            <p class="mt-3 text-sm leading-6 text-slate-200">Pendiente de completar.</p>
+          </article>
+        
+          <article class="rounded-3xl border border-slate-700 bg-slate-900/50 p-5">
+            <p class="text-xs font-medium uppercase tracking-[0.22em] text-slate-400">CI</p>
+            <p class="mt-3 text-sm leading-6 text-slate-200">Pendiente de completar.</p>
+          </article>
+        
+          <article class="rounded-3xl border border-slate-700 bg-slate-900/50 p-5">
+            <p class="text-xs font-medium uppercase tracking-[0.22em] text-slate-400">Deploy</p>
+            <p class="mt-3 text-sm leading-6 text-slate-200">Pendiente de completar.</p>
+          </article>
+        </div></div>
+    </section>
+  
+    <section class="rounded-[1.75rem] border border-slate-700 bg-slate-950/85 p-6 text-white shadow-lg">
+      <h2 class="text-2xl font-semibold tracking-tight text-white">Testing y calidad</h2>
+      <div class="mt-5 space-y-4">
+    <div class="grid gap-4 md:grid-cols-3">
+      <article class="rounded-3xl border border-slate-700 bg-slate-900/50 p-5">
+        <p class="text-xs font-medium uppercase tracking-[0.22em] text-slate-400">Pruebas</p>
+        <p class="mt-3 text-sm leading-6 text-slate-200">Testing Library, Vitest</p>
+      </article>
+      <article class="rounded-3xl border border-slate-700 bg-slate-900/50 p-5">
+        <p class="text-xs font-medium uppercase tracking-[0.22em] text-slate-400">Estructura del proyecto</p>
+        <p class="mt-3 text-sm leading-6 text-slate-200">Pendiente de completar.</p>
+      </article>
+      <article class="rounded-3xl border border-slate-700 bg-slate-900/50 p-5">
+        <p class="text-xs font-medium uppercase tracking-[0.22em] text-slate-400">Archivos analizados</p>
+        <p class="mt-3 text-sm leading-6 text-slate-200">3</p>
+      </article>
+    </div>
+    <p class="text-sm leading-7 text-slate-300">El repositorio incluye evidencia de pruebas automatizadas. Conviene revisar su cobertura real antes de usarlo como señal de calidad.</p>
+  </div>
+    </section>
+  
+    <section class="rounded-[1.75rem] border border-slate-700 bg-slate-950/85 p-6 text-white shadow-lg">
+      <h2 class="text-2xl font-semibold tracking-tight text-white">Dependencias e integraciones</h2>
+      <div class="mt-5 space-y-4">
+    <div class="grid gap-6 xl:grid-cols-2">
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-[0.22em] text-slate-400">Dependencias clave</h3>
+        
+    <div class="grid gap-4 lg:grid-cols-2">
+      
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">@radix-ui/react-slot</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">dependencies ^1.1.0</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">@radix-ui/react-tabs</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">dependencies ^1.1.1</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">@testing-library/jest-dom</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">devDependencies ^6.6.3</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">@testing-library/react</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">devDependencies ^16.0.1</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">@testing-library/user-event</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">devDependencies ^14.5.2</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">@types/node</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">devDependencies ^22.7.4</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">@types/react</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">devDependencies ^18.3.11</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">@types/react-dom</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">devDependencies ^18.3.0</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">@vitejs/plugin-react</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">devDependencies ^4.3.3</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">animejs</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">dependencies ^3.2.2</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">autoprefixer</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">devDependencies ^10.4.20</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">class-variance-authority</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">dependencies ^0.7.0</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">clsx</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">dependencies ^2.1.1</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">jsdom</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">devDependencies ^25.0.1</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">lucide-react</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">dependencies ^0.451.0</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">postcss</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">devDependencies ^8.4.47</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">react</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">dependencies ^18.3.1</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">react-dom</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">dependencies ^18.3.1</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">react-router-dom</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">dependencies ^6.27.0</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">tailwind-merge</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">dependencies ^2.5.3</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+    </div>
+  
+      </div>
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-[0.22em] text-slate-400">Integraciones</h3>
+        <div class="rounded-3xl border border-slate-700 bg-slate-900/50 px-5 py-4 text-sm text-slate-300">Pendiente de completar.</div>
+      </div>
+    </div>
+  </div>
+    </section>
+  
+    <section class="rounded-[1.75rem] border border-slate-700 bg-slate-950/85 p-6 text-white shadow-lg">
+      <h2 class="text-2xl font-semibold tracking-tight text-white">Observado vs inferido</h2>
+      <div class="mt-5 space-y-4">
+    <div class="grid gap-6 xl:grid-cols-2">
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-[0.22em] text-slate-400">Observado</h3>
+        
+    <div class="grid gap-4 lg:grid-cols-2">
+      
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">Manifest</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">package.json</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">Descripcion</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">AthletiX is a responsive wellness frontend built with Vite, React, TypeScript, Tailwind CSS, shadcn-style UI primitives, and anime.js.</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">README.md</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">Frameworks</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">React</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">UI</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">anime.js, Lucide Icons, Radix UI, Tailwind CSS</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">Entrypoints</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">src/main.tsx, index.html</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">src/main.tsx</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">Pruebas</h3>
+                
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">3 archivos de prueba detectados</p>
+              
+              <p class="mt-4 text-xs font-mono text-slate-400">repository scan</p>
+            </article>
+          
+    </div>
+  
+      </div>
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-[0.22em] text-slate-400">Inferido</h3>
+        
+    <div class="grid gap-4 lg:grid-cols-2">
+      
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">Tipo de repositorio</h3>
+                <span class="rounded-full border border-slate-600 bg-slate-800/80 px-3 py-1 text-xs font-medium text-slate-100">medium</span>
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">Aplicacion frontend</p>
+              <p class="mt-3 text-sm leading-6 text-slate-400">Inferido por frameworks, manifiestos y estructura del arbol.</p>
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+            <article class="rounded-3xl border border-slate-700 bg-slate-900/60 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-base font-semibold text-slate-100">Resumen de arquitectura</h3>
+                <span class="rounded-full border border-slate-600 bg-slate-800/80 px-3 py-1 text-xs font-medium text-slate-100">medium</span>
+              </div>
+              <p class="mt-3 text-sm leading-6 text-slate-200">El repositorio apunta a una aplicacion frontend centrada en React, Vite, TypeScript, Tailwind CSS.</p>
+              <p class="mt-3 text-sm leading-6 text-slate-400">Inferido a partir del stack detectado.</p>
+              <p class="mt-4 text-xs font-mono text-slate-400">package.json</p>
+            </article>
+          
+    </div>
+  
+      </div>
+    </div>
+  </div>
+    </section>
+  
+    <section class="rounded-[1.75rem] border border-slate-700 bg-slate-950/85 p-6 text-white shadow-lg">
+      <h2 class="text-2xl font-semibold tracking-tight text-white">Riesgos y vacios</h2>
+      <div class="mt-5 space-y-4">
+    <ul class="space-y-3">
+      <li class="text-slate-200 leading-7">• Confirma con el owner del producto el objetivo de negocio, los usuarios principales y cualquier flujo que no sea visible solo desde el repositorio.</li>
+    </ul>
+  </div>
+    </section>
+  </main>
+      <footer class="mt-8 border-t border-slate-300/70 py-6 text-sm text-slate-500">Generado por project-onboarding-docs a partir de /Users/josejaredvillatorovargas/Code/I01/AthletiX.</footer>
+    </div>
+  </body>
+</html>
